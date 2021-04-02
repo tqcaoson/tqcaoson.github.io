@@ -214,18 +214,19 @@
                 $('#traloi').focus();
                 return
             }
+            var today = new Date();
             var data = {
                 Questions: giatri,
                 Answers: giatri2,
                 Type: '',
-                Time: Date.now.toString()
+                Time: today.toString()
             };
             $('#ContentChatBot').append('<div class="chat"><strong>Tôi:</strong><p>' + giatri + '</p><div>');
             $.ajax({
                 type: "POST",
                 data: JSON.stringify(data),
                 dataType: "json",
-                url: "https://simsimiv2.azurewebsites.net/api/simsimi",
+                url: "https://coder-bot-api.herokuapp.com/users/create",
                 contentType: "application/json; charset=utf-8",
                 success: function (data) {
                     alert('Dạy Simsimi thành công!')

@@ -271,16 +271,21 @@
 
         $('#send').click(function () {
             var giatri = $('#noidung').val();
+            if (giatri == '') {
+                alert('vui lòng điền câu hỏi');
+                $('#noidung').focus();
+                return
+            }
             HumanResponse('Tôi', $('#noidung').val());
             $.ajax({
                 type: "get",
-                url: "https://simsimiv2.azurewebsites.net/api/simsimi",
+                url: "https://coder-bot-api.herokuapp.com/users",
                 data: "text=" + giatri,
                 contentType: "application/json; charset=utf-8",
                 success: function (data) {
                     botResponse('Bot', data.Answers);
                     if (data.ID == "err")
-                        botResponse('Bot', 'Anh/chị nào có ý tốt muốn dạy em thì vui lòng nhấp vào link sau ạ ^^<br/><a href="/bot/BotLearn.html">Dạy dỗ bot simsimi</a>');
+                        botResponse('Bot', 'Anh/chị nào có ý tốt muốn dạy em thì vui lòng nhấp vào link sau ạ ^^<br/><a href="/BotLearn.html">Dạy dỗ bot simsimi</a>');
 
 
                 },
@@ -301,13 +306,13 @@
                 HumanResponse('Tôi', $('#noidung').val());
                 $.ajax({
                     type: "get",
-                    url: "https://simsimiv2.azurewebsites.net/api/simsimi",
+                    url: "https://coder-bot-api.herokuapp.com/users",
                     data: "text=" + giatri,
                     contentType: "application/json; charset=utf-8",
                     success: function (data) {
                         botResponse('Bot', data.Answers);
                         if (data.ID == "err")
-                            botResponse('Bot', 'Anh/chị nào có ý tốt muốn dạy em thì vui lòng nhấp vào link sau ạ ^^<br/><a href="/bot/BotLearn.html">Dạy dỗ bot simsimi</a>');
+                            botResponse('Bot', 'Anh/chị nào có ý tốt muốn dạy em thì vui lòng nhấp vào link sau ạ ^^<br/><a href="/BotLearn.html">Dạy dỗ bot simsimi</a>');
 
 
                     },
