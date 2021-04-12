@@ -39,7 +39,7 @@ function clickedBox(element){
     if(players.classList.contains("player")){
         playerSign = "O"; //if player choose (O) then change playerSign to O
         element.innerHTML = `<i class="${playerOIcon}"></i>`; //adding circle icon tag inside user clicked element/box
-        players.classList.add("active"); ///add active class in players
+        players.classList.remove("active"); ///add active class in players
         element.setAttribute("id", playerSign); //set id attribute in span/box with player choosen sign
     }else{
         element.innerHTML = `<i class="${playerXIcon}"></i>`; //adding cross icon tag inside user clicked element/box
@@ -49,7 +49,9 @@ function clickedBox(element){
     selectWinner(); //caliing selectWinner function
     element.style.pointerEvents = "none"; //once user select any box then that box can'be clicked again
     playBoard.style.pointerEvents = "none"; //add pointerEvents none to playboard so user can't immediately click on any other box until bot select
-    bot(); //calling bot function
+    setTimeout(()=>{
+        bot(); //calling bot function
+    },200);
 }
 
 // bot auto select function
@@ -67,35 +69,39 @@ function bot(){
         	randomBox = findIdWin("X");
         	if(randomBox == -2) {
         		randomBox = findIdChan("O");
-        		console.log("vi tri: "+randomBox);
-        		if(randomBox == -2) {
-        			let array = [4, 0, 2, 6, 8, 1, 3, 5, 7]; 
-				    for(let i = 0; i < 9; i++) {
-				    	if(allBox[array[i]].childElementCount == 0){ 
-				    		randomBox = array[i];
-				    		break;
-				    	}
-				    }
-        		}
+                if(randomBox == -2) {
+                    randomBox = findIdNuoc2("X");
+                    if(randomBox == -2) {
+                        let array = [4, 0, 2, 6, 8, 1, 3, 5, 7]; 
+                        for(let i = 0; i < 9; i++) {
+                            if(allBox[array[i]].childElementCount == 0){ 
+                                randomBox = array[i];
+                                break;
+                            }
+                        }
+                    }
+                }
         	}
             playerSign = "X"; //if player has chosen O then bot will X
             allBox[randomBox].innerHTML = `<i class="${playerXIcon}"></i>`; //adding cross icon tag inside bot selected element
-            players.classList.remove("active"); //remove active class in players
+            players.classList.add("active"); //remove active class in players
             allBox[randomBox].setAttribute("id", playerSign); //set id attribute in span/box with player choosen sign
         }else{
         	randomBox = findIdWin("O");
         	if(randomBox == -2) {
         		randomBox = findIdChan("X");
-        		console.log("vi tri: "+randomBox);
         		if(randomBox == -2) {
-        			let array = [4, 0, 2, 6, 8, 1, 3, 5, 7]; 
-				    for(let i = 0; i < 9; i++) {
-				    	if(allBox[array[i]].childElementCount == 0){ 
-				    		randomBox = array[i];
-				    		break;
-				    	}
-				    }
-        		}
+                    randomBox = findIdNuoc2("O");
+                    if(randomBox == -2) {
+                        let array = [4, 0, 2, 6, 8, 1, 3, 5, 7]; 
+                        for(let i = 0; i < 9; i++) {
+                            if(allBox[array[i]].childElementCount == 0){ 
+                                randomBox = array[i];
+                                break;
+                            }
+                        }
+                    }
+                }
         	}
             allBox[randomBox].innerHTML = `<i class="${playerOIcon}"></i>`; //adding circle icon tag inside bot selected element
             players.classList.remove("active"); //remove active class in players
@@ -114,7 +120,7 @@ function bot0(){
     	if(allBox[array[i]].childElementCount == 0){ 
             playerSign = "X"; //if player has chosen O then bot will X
 			allBox[array[i]].innerHTML = `<i class="${playerXIcon}"></i>`; //adding cross icon tag inside bot selected element
-			players.classList.remove("active"); //remove active class in players
+			players.classList.add("active"); //remove active class in players
 			allBox[array[i]].setAttribute("id", playerSign); //set id attribute in span/box with player choosen sign
 			allBox[array[i]].style.pointerEvents = "none"; //once bot select any box then user can't click on that box
 			playBoard.style.pointerEvents = "auto";
@@ -132,6 +138,10 @@ function checkIdSign(val1, val2, val3, sign){ //checking all id value is equal t
     }
 }
 function findIdWin(str) {
+    if(checkSign(1, 5, 9, str) != -1)
+		return checkSign(1, 5, 9, str)-1;
+	if(checkSign(3, 5, 7, str) != -1)
+		return checkSign(3, 5, 7, str)-1;
 	if(checkSign(1, 2, 3, str) != -1)
 		return checkSign(1, 2, 3, str)-1;
 	if(checkSign(4, 5, 6, str) != -1)
@@ -144,13 +154,13 @@ function findIdWin(str) {
 		return checkSign(2, 5, 8, str)-1;
 	if(checkSign(3, 6, 9, str) != -1)
 		return checkSign(3, 6, 9, str)-1;
-	if(checkSign(1, 5, 9, str) != -1)
-		return checkSign(1, 5, 9, str)-1;
-	if(checkSign(3, 5, 7, str) != -1)
-		return checkSign(3, 5, 7, str)-1;
 	return -2;
 }
 function findIdChan(str) {
+    if(checkSign(1, 5, 9, str) != -1)
+		return checkSign(1, 5, 9, str)-1;
+	if(checkSign(3, 5, 7, str) != -1)
+		return checkSign(3, 5, 7, str)-1;
 	if(checkSign(1, 2, 3, str) != -1)
 		return checkSign(1, 2, 3, str)-1;
 	if(checkSign(4, 5, 6, str) != -1)
@@ -163,10 +173,25 @@ function findIdChan(str) {
 		return checkSign(2, 5, 8, str)-1;
 	if(checkSign(3, 6, 9, str) != -1)
 		return checkSign(3, 6, 9, str)-1;
-	if(checkSign(1, 5, 9, str) != -1)
-		return checkSign(1, 5, 9, str)-1;
-	if(checkSign(3, 5, 7, str) != -1)
-		return checkSign(3, 5, 7, str)-1;
+	return -2;
+}
+function findIdNuoc2(str) {
+    if(checkSignDi(1, 5, 9, str) != -1)
+		return checkSignDi(1, 5, 9, str)-1;
+	if(checkSignDi(3, 5, 7, str) != -1)
+		return checkSignDi(3, 5, 7, str)-1;
+	if(checkSignDi(1, 2, 3, str) != -1)
+		return checkSignDi(1, 2, 3, str)-1;
+	if(checkSignDi(4, 5, 6, str) != -1)
+		return checkSignDi(4, 5, 6, str)-1;
+	if(checkSignDi(7, 8, 9, str) != -1)
+		return checkSignDi(7, 8, 9, str)-1;
+	if(checkSignDi(1, 4, 7, str) != -1)
+		return checkSignDi(1, 4, 7, str)-1;
+	if(checkSignDi(2, 5, 8, str) != -1)
+		return checkSignDi(2, 5, 8, str)-1;
+	if(checkSignDi(3, 6, 9, str) != -1)
+		return checkSignDi(3, 6, 9, str)-1;
 	return -2;
 }
 function checkSign(val1, val2, val3, sign){ //checking all id value is equal to sign (X or O) or not if yes then return true
@@ -177,6 +202,18 @@ function checkSign(val1, val2, val3, sign){ //checking all id value is equal to 
         return val2;
     }
     if(getIdVal(val1) == "" && getIdVal(val2) == sign && getIdVal(val3) == sign){
+        return val1;
+    }
+    return -1;
+}
+function checkSignDi(val1, val2, val3, sign){ //checking all id value is equal to sign (X or O) or not if yes then return true
+    if(getIdVal(val1) == "" && getIdVal(val2) == sign && getIdVal(val3) == ""){
+        return val3;
+    }
+    if(getIdVal(val1) == sign && getIdVal(val2) == "" && getIdVal(val3) == ""){
+        return val2;
+    }
+    if(getIdVal(val1) == "" && getIdVal(val2) == "" && getIdVal(val3) == sign){
         return val1;
     }
     return -1;
