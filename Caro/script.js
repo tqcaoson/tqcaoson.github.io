@@ -70,7 +70,7 @@ function bot(){
         	if(randomBox == -2) {
         		randomBox = findIdChan("O");
                 if(randomBox == -2) {
-                    randomBox = findIdNuoc2("X");
+                    randomBox = findIdNuoc2("X",1);
                     if(randomBox == -2) {
                         let array = [4, 0, 2, 6, 8, 1, 3, 5, 7]; 
                         for(let i = 0; i < 9; i++) {
@@ -91,7 +91,7 @@ function bot(){
         	if(randomBox == -2) {
         		randomBox = findIdChan("X");
         		if(randomBox == -2) {
-                    randomBox = findIdNuoc2("O");
+                    randomBox = findIdNuoc2("O",2);
                     if(randomBox == -2) {
                         let array = [4, 0, 2, 6, 8, 1, 3, 5, 7]; 
                         for(let i = 0; i < 9; i++) {
@@ -175,23 +175,23 @@ function findIdChan(str) {
 		return checkSign(3, 6, 9, str)-1;
 	return -2;
 }
-function findIdNuoc2(str) {
-    if(checkSignDi(1, 5, 9, str) != -1)
-		return checkSignDi(1, 5, 9, str)-1;
-	if(checkSignDi(3, 5, 7, str) != -1)
-		return checkSignDi(3, 5, 7, str)-1;
-	if(checkSignDi(1, 2, 3, str) != -1)
-		return checkSignDi(1, 2, 3, str)-1;
-	if(checkSignDi(4, 5, 6, str) != -1)
-		return checkSignDi(4, 5, 6, str)-1;
-	if(checkSignDi(7, 8, 9, str) != -1)
-		return checkSignDi(7, 8, 9, str)-1;
-	if(checkSignDi(1, 4, 7, str) != -1)
-		return checkSignDi(1, 4, 7, str)-1;
-	if(checkSignDi(2, 5, 8, str) != -1)
-		return checkSignDi(2, 5, 8, str)-1;
-	if(checkSignDi(3, 6, 9, str) != -1)
-		return checkSignDi(3, 6, 9, str)-1;
+function findIdNuoc2(str,so) {
+    if(checkSignDi(1, 5, 9, str,so) != -1)
+		return checkSignDi(1, 5, 9, str,so)-1;
+	if(checkSignDi(3, 5, 7, str,so) != -1)
+		return checkSignDi(3, 5, 7, str,so)-1;
+	if(checkSignDi(1, 2, 3, str,so) != -1)
+		return checkSignDi(1, 2, 3, str,so)-1;
+	if(checkSignDi(4, 5, 6, str,so) != -1)
+		return checkSignDi(4, 5, 6, str,so)-1;
+	if(checkSignDi(7, 8, 9, str,so) != -1)
+		return checkSignDi(7, 8, 9, str,so)-1;
+	if(checkSignDi(1, 4, 7, str,so) != -1)
+		return checkSignDi(1, 4, 7, str,so)-1;
+	if(checkSignDi(2, 5, 8, str,so) != -1)
+		return checkSignDi(2, 5, 8, str,so)-1;
+	if(checkSignDi(3, 6, 9, str,so) != -1)
+		return checkSignDi(3, 6, 9, str,so)-1;
 	return -2;
 }
 function checkSign(val1, val2, val3, sign){ //checking all id value is equal to sign (X or O) or not if yes then return true
@@ -206,15 +206,15 @@ function checkSign(val1, val2, val3, sign){ //checking all id value is equal to 
     }
     return -1;
 }
-function checkSignDi(val1, val2, val3, sign){ //checking all id value is equal to sign (X or O) or not if yes then return true
+function checkSignDi(val1, val2, val3, sign,so){ //checking all id value is equal to sign (X or O) or not if yes then return true
     if(getIdVal(val1) == "" && getIdVal(val2) == sign && getIdVal(val3) == ""){
-        return (Math.floor(Math.random() * 2) == 1) ? val1 : val3;
+        return (Math.floor(Math.random() * so) == 0) ? val3 : val1;
     }
     if(getIdVal(val1) == sign && getIdVal(val2) == "" && getIdVal(val3) == ""){
-        return (Math.floor(Math.random() * 2) == 1) ? val2 : val3;
+        return (Math.floor(Math.random() * so) == 0) ? val2 : val3;
     }
     if(getIdVal(val1) == "" && getIdVal(val2) == "" && getIdVal(val3) == sign){
-        return (Math.floor(Math.random() * 2) == 1) ? val1 : val2;
+        return (Math.floor(Math.random() * so) == 0) ? val1 : val2;
     }
     return -1;
 }
