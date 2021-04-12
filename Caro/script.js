@@ -91,13 +91,16 @@ function bot(){
         	if(randomBox == -2) {
         		randomBox = findIdChan("X");
         		if(randomBox == -2) {
-                    randomBox = findIdNuoc2("O",2);
+                    randomBox = findIdChanNuoc2("X"); 
                     if(randomBox == -2) {
-                        let array = [4, 0, 2, 6, 8, 1, 3, 5, 7]; 
-                        for(let i = 0; i < 9; i++) {
-                            if(allBox[array[i]].childElementCount == 0){ 
-                                randomBox = array[i];
-                                break;
+                        randomBox = findIdNuoc2("O",2);
+                        if(randomBox == -2) {
+                            let array = [4, 0, 2, 6, 8, 1, 3, 5, 7]; 
+                            for(let i = 0; i < 9; i++) {
+                                if(allBox[array[i]].childElementCount == 0){ 
+                                    randomBox = array[i];
+                                    break;
+                                }
                             }
                         }
                     }
@@ -192,6 +195,25 @@ function findIdNuoc2(str,so) {
 		return checkSignDi(2, 5, 8, str,so)-1;
 	if(checkSignDi(3, 6, 9, str,so) != -1)
 		return checkSignDi(3, 6, 9, str,so)-1;
+	return -2;
+}
+function findIdChanNuoc2(str) {
+    if(getIdVal(1) == "" && getIdVal(4) == str && getIdVal(7) == "" && getIdVal(8) == "" && getIdVal(9) == str)
+		return 6;
+    if(getIdVal(1) == str && getIdVal(4) == "" && getIdVal(7) == "" && getIdVal(8) == str && getIdVal(9) == "")
+		return 6;
+    if(getIdVal(7) == "" && getIdVal(8) == str && getIdVal(9) == "" && getIdVal(6) == "" && getIdVal(3) == str)
+		return 8;
+    if(getIdVal(7) == str && getIdVal(8) == "" && getIdVal(9) == "" && getIdVal(6) == str && getIdVal(3) == "")
+		return 8;
+    if(getIdVal(9) == str && getIdVal(6) == "" && getIdVal(3) == "" && getIdVal(2) == str && getIdVal(1) == "")
+		return 2;
+    if(getIdVal(9) == "" && getIdVal(6) == str && getIdVal(3) == "" && getIdVal(2) == "" && getIdVal(1) == str)
+		return 2;
+    if(getIdVal(4) == "" && getIdVal(7) == str && getIdVal(3) == "" && getIdVal(2) == str && getIdVal(1) == "")
+		return 0;
+    if(getIdVal(4) == str && getIdVal(7) == "" && getIdVal(3) == str && getIdVal(2) == "" && getIdVal(1) == "")
+		return 0;
 	return -2;
 }
 function checkSign(val1, val2, val3, sign){ //checking all id value is equal to sign (X or O) or not if yes then return true
