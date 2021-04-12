@@ -179,10 +179,12 @@ function findIdChan(str) {
 	return -2;
 }
 function findIdNuoc2(str,so) {
-    if(checkSignDi(1, 5, 9, str,so) != -1)
-		return checkSignDi(1, 5, 9, str,so)-1;
-	if(checkSignDi(3, 5, 7, str,so) != -1)
-		return checkSignDi(3, 5, 7, str,so)-1;
+    if(so == 1) {
+        if(checkSignDi(1, 5, 9, str,so) != -1)
+            return checkSignDi(1, 5, 9, str,so)-1;
+        if(checkSignDi(3, 5, 7, str,so) != -1)
+            return checkSignDi(3, 5, 7, str,so)-1;
+    }
 	if(checkSignDi(1, 2, 3, str,so) != -1)
 		return checkSignDi(1, 2, 3, str,so)-1;
 	if(checkSignDi(4, 5, 6, str,so) != -1)
@@ -195,6 +197,12 @@ function findIdNuoc2(str,so) {
 		return checkSignDi(2, 5, 8, str,so)-1;
 	if(checkSignDi(3, 6, 9, str,so) != -1)
 		return checkSignDi(3, 6, 9, str,so)-1;
+    if(so == 2) {
+        if(checkSignDi(1, 5, 9, str,so) != -1)
+            return checkSignDi(1, 5, 9, str,so)-1;
+        if(checkSignDi(3, 5, 7, str,so) != -1)
+            return checkSignDi(3, 5, 7, str,so)-1;
+    }
 	return -2;
 }
 function findIdChanNuoc2(str) {
