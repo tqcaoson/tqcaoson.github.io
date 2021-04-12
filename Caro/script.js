@@ -208,13 +208,13 @@ function checkSign(val1, val2, val3, sign){ //checking all id value is equal to 
 }
 function checkSignDi(val1, val2, val3, sign){ //checking all id value is equal to sign (X or O) or not if yes then return true
     if(getIdVal(val1) == "" && getIdVal(val2) == sign && getIdVal(val3) == ""){
-        return val3;
+        return (Math.floor(Math.random() * 2) == 1) ? val1 : val3;
     }
     if(getIdVal(val1) == sign && getIdVal(val2) == "" && getIdVal(val3) == ""){
-        return val2;
+        return (Math.floor(Math.random() * 2) == 1) ? val2 : val3;
     }
     if(getIdVal(val1) == "" && getIdVal(val2) == "" && getIdVal(val3) == sign){
-        return val1;
+        return (Math.floor(Math.random() * 2) == 1) ? val1 : val2;
     }
     return -1;
 }
