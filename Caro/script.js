@@ -183,7 +183,7 @@ function findIdNuoc2(str,so) {
         if(checkSignDi(1, 5, 9, str,so) != -1)
             return checkSignDi(1, 5, 9, str,so)-1;
         if(checkSignDi(3, 5, 7, str,so) != -1)
-            return checkSignDi(3, 5, 7, str,so)-1;
+            return (getIdVal(8) != "") ? 2 : 6;
     }
 	if(checkSignDi(1, 2, 3, str,so) != -1)
 		return checkSignDi(1, 2, 3, str,so)-1;
