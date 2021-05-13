@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+<div id="thongke"></div>
+<br>
+<div id="dulieu"></div>
+
+<script type="text/javascript">
+	let domHtmlTK = `
+        <table border="1">
+        <thead>
+        	<th>Số ca</th>
+        	<th>Tử vong</th>
+        	<th>Phục hồi</th>
+        </thead>
+        <tbody>
+    `;
+	fetch('https://sheets.googleapis.com/v4/spreadsheets/1xqaPtw6ETZycgJz0Ghp0Kf9tBwBobs-cw_JUIbf3XJc/values/TongCaNhiem!A2:C2?key=AIzaSyCN1H0U7Oc8acUn_zupQPYFA0Rt1hiIURM')
+	  .then(response => response.json())
+	  .then(data => {
+  		domHtmlTK += `
+	        <tr>
+	        	<td>`+data.values[0][0]+`</td>
+	        	<td>`+data.values[0][1]+`</td>
+	        	<td>`+data.values[0][2]+`</td>
+	        </tr>
+	    `;
+		domHtmlTK += `
+	        </tbody>
+	       </table>
+	    `;
+	    document.getElementById('thongke').innerHTML = domHtmlTK;
+	});
+	let domHtml = `
+        <table border="1">
+        <thead>
+        	<th>Tỉnh</th>
+        	<th>Số ca</th>
+        	<th>Tử vong</th>
+        	<th>Phục hồi</th>
+        </thead>
+        <tbody>
+    `;
+	fetch('https://sheets.googleapis.com/v4/spreadsheets/1xqaPtw6ETZycgJz0Ghp0Kf9tBwBobs-cw_JUIbf3XJc/values/CapNhapDuLieu!A2:D100?key=AIzaSyCN1H0U7Oc8acUn_zupQPYFA0Rt1hiIURM')
+	  .then(response => response.json())
+	  .then(data => {
+	  	data.values.sort((a, b) => b[1] - a[1]);
+	  	data.values.map((e) => {
+	  		domHtml += `
+		        <tr>
+		        	<td>`+e[0]+`</td>
+		        	<td>`+e[1]+`</td>
+		        	<td>`+e[2]+`</td>
+		        	<td>`+e[3]+`</td>
+		        </tr>
+		    `;
+	  	});
+		domHtml += `
+	        </tbody>
+	       </table>
+	    `;
+	    document.getElementById('dulieu').innerHTML = domHtml;
+	});
+</script>
+</body>
+</html>
