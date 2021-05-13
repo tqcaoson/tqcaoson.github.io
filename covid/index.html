@@ -2,18 +2,50 @@
 <html>
 <head>
 	<title></title>
+	<style type="text/css">
+		.table-scroll table {
+		    width: 100%;
+		    min-width: 100%;
+		    margin: auto;
+		    border-collapse: separate;
+		    border-spacing: 0;
+		}
+		.table-scroll thead th {
+		    background: #C64545;
+		    color: #fff;
+		    position: -webkit-sticky;
+		    position: sticky;
+		    top: 0;
+		}
+		.table-scroll th, .table-scroll td {
+		    padding: 5px 10px;
+		    border: 1px solid #f8f8f8;
+		    background: #fff;
+		    vertical-align: top;
+		}
+		.green {
+		    color: #1AA85C;
+		}
+		.red {
+		    color: #C64545;
+		}
+		.yellow {
+			color: #ffd700;
+		}
+	</style>
 </head>
 <body>
 
-<div id="thongke"></div>
+<div id="thongke" class="table-scroll"></div>
 <br>
-<div id="dulieu"></div>
+<div id="dulieu" class="table-scroll"></div>
 
 <script type="text/javascript">
 	let domHtmlTK = `
-        <table border="1">
+        <table class="main-table" border="1">
         <thead>
         	<th>Số ca</th>
+        	<th>Đang điều trị</th>
         	<th>Tử vong</th>
         	<th>Phục hồi</th>
         </thead>
@@ -22,11 +54,13 @@
 	fetch('https://sheets.googleapis.com/v4/spreadsheets/1xqaPtw6ETZycgJz0Ghp0Kf9tBwBobs-cw_JUIbf3XJc/values/TongCaNhiem!A2:C2?key=AIzaSyCN1H0U7Oc8acUn_zupQPYFA0Rt1hiIURM')
 	  .then(response => response.json())
 	  .then(data => {
+	  	let dieutri = parseInt(data.values[0][0].replace(/\./g, "")) - (parseInt(data.values[0][1].replace(/\./g, "")) + parseInt(data.values[0][2].replace(/\./g, "")));
   		domHtmlTK += `
 	        <tr>
-	        	<td>`+data.values[0][0]+`</td>
+	        	<td class="red">`+data.values[0][0]+`</td>
+	        	<td class="yellow">`+dieutri+`</td>
 	        	<td>`+data.values[0][1]+`</td>
-	        	<td>`+data.values[0][2]+`</td>
+	        	<td class="green">`+data.values[0][2]+`</td>
 	        </tr>
 	    `;
 		domHtmlTK += `
@@ -38,8 +72,10 @@
 	let domHtml = `
         <table border="1">
         <thead>
+        	<th>Thứ tự</th>
         	<th>Tỉnh</th>
         	<th>Số ca</th>
+        	<th>Đang điều trị</th>
         	<th>Tử vong</th>
         	<th>Phục hồi</th>
         </thead>
@@ -48,14 +84,18 @@
 	fetch('https://sheets.googleapis.com/v4/spreadsheets/1xqaPtw6ETZycgJz0Ghp0Kf9tBwBobs-cw_JUIbf3XJc/values/CapNhapDuLieu!A2:D100?key=AIzaSyCN1H0U7Oc8acUn_zupQPYFA0Rt1hiIURM')
 	  .then(response => response.json())
 	  .then(data => {
+	  	let i = 1;
 	  	data.values.sort((a, b) => b[1] - a[1]);
 	  	data.values.map((e) => {
+	  		let dieutri = parseInt(e[1].replace(/\./g, "")) - (parseInt(e[2].replace(/\./g, "")) + parseInt(e[3].replace(/\./g, "")));
 	  		domHtml += `
 		        <tr>
+		        	<td>`+(i++)+`</td>
 		        	<td>`+e[0]+`</td>
-		        	<td>`+e[1]+`</td>
+		        	<td class="red">`+e[1]+`</td>
+		        	<td class="yellow">`+dieutri+`</td>
 		        	<td>`+e[2]+`</td>
-		        	<td>`+e[3]+`</td>
+		        	<td class="green">`+e[3]+`</td>
 		        </tr>
 		    `;
 	  	});
