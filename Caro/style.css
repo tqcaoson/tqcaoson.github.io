@@ -150,11 +150,11 @@ body{
 .play-area{
   margin-top: 20px;
 }
-.play-area section{
+.play-area tr{
   display: flex;
   margin-bottom: 1px;
 }
-.play-area section span{
+.play-area tr td{
   display: block;
   height: 90px;
   width: 90px;
@@ -165,6 +165,7 @@ body{
   text-align: center;
   border-radius: 5px;
   background: #fff;
+  cursor: pointer;
 }
 
 .result-box{

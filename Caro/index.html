@@ -13,8 +13,8 @@
     <div class="content">
       <div class="title">Select which you want to be?</div>
       <div class="options">
-        <button class="playerX">Player (X)</button>
-        <button class="playerO">Player (O)</button>
+        <button class="playerX" onClick="selectSym('X')">Player (X)</button>
+        <button class="playerO" onClick="selectSym('O')">Player (O)</button>
       </div>
     </div>
   </div> 
@@ -29,21 +29,23 @@
       </div>
     </div>
     <div class="play-area">
-      <section>
-        <span class="box1"></span>
-        <span class="box2"></span>
-        <span class="box3"></span>
-      </section>
-      <section>
-        <span class="box4"></span>
-        <span class="box5"></span>
-        <span class="box6"></span>
-      </section>
-      <section>
-        <span class="box7"></span>
-        <span class="box8"></span>
-        <span class="box9"></span>
-      </section>
+      <table>
+        <tr>
+          <td class="cell" id="0"></td>
+          <td class="cell" id="1"></td>
+          <td class="cell" id="2"></td>
+        </tr>
+        <tr>
+          <td class="cell" id="3"></td>
+          <td class="cell" id="4"></td>
+          <td class="cell" id="5"></td>
+        </tr>
+        <tr>
+          <td class="cell" id="6"></td>
+          <td class="cell" id="7"></td>
+          <td class="cell" id="8"></td>
+        </tr>
+      </table>
     </div>
   </div>
 
