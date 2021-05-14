@@ -1,5 +1,5 @@
 let origBoard;
-let huPlayer ='O';
+let huPlayer = 'O';
 let aiPlayer = 'X';
 const winCombos =[
   [0, 1, 2],
@@ -28,11 +28,9 @@ function selectSym(sym){
     cells[i].addEventListener('click', turnClick, false);
   }
   if (aiPlayer === 'X') {
-    
     turn(bestSpot(),aiPlayer);
   }
 }
-//document.querySelector(".players").classList.remove("active");
 function startGame() {
     document.querySelector('.result-box').classList.remove("show");
     document.querySelector('.result-box').classList.add("hide");
@@ -53,7 +51,6 @@ function turnClick(square) {
     } else {
         document.querySelector(".players").classList.remove("active");
     }
-    
     turn(square.target.id, huPlayer);
     if (!checkWin(origBoard, huPlayer) && !checkTie())  
       setTimeout(()=>{
@@ -69,10 +66,10 @@ function turnClick(square) {
 
 function turn(squareId, player) {
   origBoard[squareId] = player;
-  document.getElementById(squareId).innerHTML = player;
+  document.getElementById(squareId).innerHTML = (player=='X') ? `<i class="fas fa-times"></i>` : `<i class="far fa-circle"></i>`;
   let gameWon = checkWin(origBoard, player);
   if (gameWon) gameOver(gameWon);
-  checkTie();
+  else checkTie();
 }
 
 function checkWin(board, player) {
