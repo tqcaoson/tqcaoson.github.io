@@ -69,7 +69,7 @@ function turnClick(square) {
 
 function turn(squareId, player) {
   origBoard[squareId] = player;
-  document.getElementById(squareId).innerHTML = player;
+  document.getElementById(squareId).innerHTML = (player=='X') ? `<i class="fas fa-times"></i>` : `<i class="far fa-circle"></i>`; 
   let gameWon = checkWin(origBoard, player);
   if (gameWon) gameOver(gameWon);
   else checkTie();
