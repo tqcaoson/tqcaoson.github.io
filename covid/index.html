@@ -51,16 +51,15 @@
         </thead>
         <tbody>
     `;
-	fetch('https://sheets.googleapis.com/v4/spreadsheets/1xqaPtw6ETZycgJz0Ghp0Kf9tBwBobs-cw_JUIbf3XJc/values/TongCaNhiem!A2:C2?key=AIzaSyCN1H0U7Oc8acUn_zupQPYFA0Rt1hiIURM')
+	fetch('https://corona.lmao.ninja/v2/countries/vn')
 	  .then(response => response.json())
 	  .then(data => {
-	  	let dieutri = parseInt(data.values[0][0].replace(/\./g, "")) - (parseInt(data.values[0][1].replace(/\./g, "")) + parseInt(data.values[0][2].replace(/\./g, "")));
   		domHtmlTK += `
 	        <tr>
-	        	<td class="red">`+data.values[0][0]+`</td>
-	        	<td class="yellow">`+dieutri+`</td>
-	        	<td>`+data.values[0][1]+`</td>
-	        	<td class="green">`+data.values[0][2]+`</td>
+	        	<td class="red">`+data.cases+`</td>
+	        	<td class="yellow">`+data.active+`</td>
+	        	<td>`+data.deaths+`</td>
+	        	<td class="green">`+data.recovered+`</td>
 	        </tr>
 	    `;
 		domHtmlTK += `
