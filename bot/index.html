@@ -279,7 +279,7 @@
             HumanResponse('Tôi', $('#noidung').val());
             $.ajax({
                 type: "get",
-                url: "https://coder-bot-api.herokuapp.com/users",
+                url: "http://localhost:3000/users",
                 data: "text=" + giatri,
                 contentType: "application/json; charset=utf-8",
                 success: function (data) {
@@ -306,7 +306,7 @@
                 HumanResponse('Tôi', $('#noidung').val());
                 $.ajax({
                     type: "get",
-                    url: "https://coder-bot-api.herokuapp.com/users",
+                    url: "http://localhost:3000/users",
                     data: "text=" + giatri,
                     contentType: "application/json; charset=utf-8",
                     success: function (data) {
