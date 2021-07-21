@@ -86,17 +86,30 @@
 	  	let i = 1;
 	  	data.values.sort((a, b) => b[1].replace(/\./g, "") - a[1].replace(/\./g, ""));
 	  	data.values.map((e) => {
-	  		let dieutri = parseInt(e[1].replace(/\./g, "")) - (parseInt(e[2].replace(/\./g, "")) + parseInt(e[3].replace(/\./g, "")));
-	  		domHtml += `
-		        <tr>
-		        	<td>`+(i++)+`</td>
-		        	<td>`+e[0]+`</td>
-		        	<td class="red">`+e[1]+`</td>
-		        	<td class="yellow">`+dieutri+`</td>
-		        	<td>`+e[2]+`</td>
-		        	<td class="green">`+e[3]+`</td>
-		        </tr>
-		    `;
+	  		if(e[2] !== undefined) {
+		  		let dieutri = parseInt(e[1].replace(/\./g, "")) - (parseInt(e[2].replace(/\./g, "")) + parseInt(e[3].replace(/\./g, "")));
+		  		domHtml += `
+			        <tr>
+			        	<td>`+(i++)+`</td>
+			        	<td>`+e[0]+`</td>
+			        	<td class="red">`+e[1]+`</td>
+			        	<td class="yellow">`+dieutri+`</td>
+			        	<td>`+e[2]+`</td>
+			        	<td class="green">`+e[3]+`</td>
+			        </tr>
+			    `;
+            		} else {
+		  		domHtml += `
+			        <tr>
+			        	<td>`+(i++)+`</td>
+			        	<td>`+e[0]+`</td>
+			        	<td class="red">`+e[1]+`</td>
+			        	<td class="yellow">`+0+`</td>
+			        	<td>`+0+`</td>
+			        	<td class="green">`+0+`</td>
+			        </tr>
+			    `;
+            		}
 	  	});
 		domHtml += `
 	        </tbody>
