@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+		.table-scroll table {
+		    width: 100%;
+		    min-width: 100%;
+		    margin: auto;
+		    border-collapse: separate;
+		    border-spacing: 0;
+		}
+		.table-scroll thead th {
+		    background: #C64545;
+		    color: #fff;
+		    position: -webkit-sticky;
+		    position: sticky;
+		    top: 0;
+		}
+		.table-scroll th, .table-scroll td {
+		    padding: 5px 10px;
+		    border: 1px solid #f8f8f8;
+		    background: #fff;
+		    vertical-align: top;
+		}
+		.green {
+		    color: #1AA85C;
+		}
+		.red {
+		    color: #C64545;
+		}
+		.yellow {
+			color: #ffd700;
+		}
+	</style>
+</head>
+<body>
+
+<div id="thongke" class="table-scroll"></div>
+<br>
+<div id="thongkecovid" class="table-scroll"></div>
+<br>
+<div id="dulieu" class="table-scroll"></div>
+
+<script type="text/javascript">
+	fetch('https://tuoitre.io/covid-mix')
+	  .then(response => response.json())
+	  .then(data => {
+		let newArr = data.slice(2);
+		let domHtml = `
+			<table class="main-table">
+				<thead>
+					<th>STT</th>
+					<th>Tỉnh Thành</th>
+					<th>Số ca hôm nay</th>
+					<th>Tổng số ca</th>
+					<th>Vắc xin hôm nay</th>
+					<th>Tổng vắc xin</th>
+				</thead>
+				<tbody>
+		`;
+		newArr.sort((a, b) => (a[3] < b[3]) ? 1 : -1)
+		console.log(data);
+		let i = 1;
+		newArr.map((e) => {
+			domHtml += `
+				<tr>
+					<td>`+(i++)+`</td>
+					<td>`+e[1]+`</td>
+					<td class="red">+ `+(e[3] || 0)+`</td>
+					<td class="red">`+e[2]+`</td>
+					<td class="green">`+(e[5] || 0)+`</td>
+					<td class="green">`+e[4]+`</td>
+				</tr>
+			`;
+	  	});
+		domHtml += `
+	    		</tbody>
+	        </table>
+	    `;
+		document.getElementById('dulieu').innerHTML = domHtml;
+		domHtml = `
+			<table class="main-table">
+				<thead>
+					<th>Vắc xin toàn quốc</th>
+					<th>Vắc xin phân bổ</th>
+					<th>Đối tượng đã tiêm</th>
+					<th>Đối tượng đăng ký</th>
+				</thead>
+				<tbody>
+					<tr>
+						<td class="green">`+data[1][2]+`</td>
+						<td class="green">`+data[1][3]+`*</td>
+						<td class="green">`+data[1][4]+`*</td>
+						<td class="green">`+data[1][5]+`</td>
+					</tr>
+				</tbody>
+	        </table>
+		`;
+		document.getElementById('thongke').innerHTML = domHtml;
+		let soTinhThanh = 0;
+		let soCaMoi = 0;
+		newArr.map(x => {
+			if(x[2] > 0) soTinhThanh++;
+			if(x[3] != 0) soCaMoi += x[3];
+		});
+		domHtml = `
+			<table class="main-table">
+				<thead>
+					<th>Ca nhiễm hôm nay</th>
+					<th>Tổng số ca nhiễm</th>
+					<th>Số ca chữa khỏi</th>
+					<th>Tỉnh/thành có dịch</th>
+				</thead>
+				<tbody>
+					<tr>
+						<td class="red">+ `+soCaMoi+`</td>
+						<td class="red">`+data[0][2]+`*</td>
+						<td class="green">`+data[0][3]+`*</td>
+						<td class="red">`+soTinhThanh+`/63</td>
+					</tr>
+				</tbody>
+	        </table>
+		`;
+		document.getElementById('thongkecovid').innerHTML = domHtml;
+	});
+</script>
+</body>
+</html>
