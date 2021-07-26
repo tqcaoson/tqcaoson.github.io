@@ -100,8 +100,12 @@
 		document.getElementById('thongke').innerHTML = domHtml;
 		let soTinhThanh = 0;
 		let soCaMoi = 0;
+		let soCa = 0;
 		newArr.map(x => {
-			if(x[2] > 0) soTinhThanh++;
+			if(x[2] > 0) {
+				soTinhThanh++;
+				soCa += x[2];
+			}
 			if(x[3] != 0) soCaMoi += x[3];
 		});
 		domHtml = `
@@ -115,7 +119,7 @@
 				<tbody>
 					<tr>
 						<td class="red">+ `+soCaMoi+`</td>
-						<td class="red">`+data[0][2]+`*</td>
+						<td class="red">`+soCa+`*</td>
 						<td class="green">`+data[0][3]+`*</td>
 						<td class="red">`+soTinhThanh+`/63</td>
 					</tr>
