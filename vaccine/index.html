@@ -60,7 +60,6 @@
 				<tbody>
 		`;
 		newArr.sort((a, b) => (a[3] < b[3]) ? 1 : -1)
-		console.log(data);
 		let i = 1;
 		newArr.map((e) => {
 			domHtml += `
@@ -100,33 +99,33 @@
 		document.getElementById('thongke').innerHTML = domHtml;
 		let soTinhThanh = 0;
 		let soCaMoi = 0;
-		let soCa = 0;
 		newArr.map(x => {
-			if(x[2] > 0) {
-				soTinhThanh++;
-				soCa += x[2];
-			}
+			if(x[2] > 0) soTinhThanh++;
 			if(x[3] != 0) soCaMoi += x[3];
 		});
-		domHtml = `
-			<table class="main-table">
-				<thead>
-					<th>Ca nhiễm hôm nay</th>
-					<th>Tổng số ca nhiễm</th>
-					<th>Số ca chữa khỏi</th>
-					<th>Tỉnh/thành có dịch</th>
-				</thead>
-				<tbody>
-					<tr>
-						<td class="red">+ `+soCaMoi+`</td>
-						<td class="red">`+soCa+`*</td>
-						<td class="green">`+data[0][3]+`*</td>
-						<td class="red">`+soTinhThanh+`/63</td>
-					</tr>
-				</tbody>
-	        </table>
-		`;
-		document.getElementById('thongkecovid').innerHTML = domHtml;
+		fetch('https://corona.lmao.ninja/v2/countries/vn')
+		  .then(response => response.json())
+		  .then(data1 => {
+			domHtml = `
+				<table class="main-table">
+					<thead>
+						<th>Ca nhiễm hôm nay</th>
+						<th>Tổng số ca nhiễm</th>
+						<th>Số ca chữa khỏi</th>
+						<th>Tỉnh/thành có dịch</th>
+					</thead>
+					<tbody>
+						<tr>
+							<td class="red">+ `+soCaMoi+`</td>
+							<td class="red">`+data1.cases+`*</td>
+							<td class="green">`+data[0][3]+`*</td>
+							<td class="red">`+soTinhThanh+`/63</td>
+						</tr>
+					</tbody>
+			</table>
+			`;
+			document.getElementById('thongkecovid').innerHTML = domHtml;
+		});
 	});
 </script>
 </body>
