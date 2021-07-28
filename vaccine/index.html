@@ -54,8 +54,8 @@
 					<th>Tỉnh Thành</th>
 					<th>Số ca hôm nay</th>
 					<th>Tổng số ca</th>
-					<th>Vắc xin hôm nay</th>
-					<th>Tổng vắc xin</th>
+					<th>Vắc xin đã tiêm</th>
+					<th>Vắc xin phân bổ</th>
 				</thead>
 				<tbody>
 		`;
@@ -68,8 +68,8 @@
 					<td>`+e[1]+`</td>
 					<td class="red">+ `+(e[3] || 0)+`</td>
 					<td class="red">`+e[2]+`</td>
-					<td class="green">`+(e[5] || 0)+`</td>
-					<td class="green">`+e[4]+`</td>
+					<td class="green">`+(e[4] || 0)+`</td>
+					<td class="green">`+e[5]+`</td>
 				</tr>
 			`;
 	  	});
