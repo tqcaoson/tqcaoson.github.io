@@ -64,9 +64,9 @@ let arrText = [
   "Phăng teo. Quân bài của số mệnh. Nó không phải là một điềm gở cũng như điềm lành con ạ. Ý nghĩa của nó là chuyện gì đến sẽ đến, nếu con mong chờ một điều gì đó thì cũng không phải sổt ruột. Thày nghĩ là con hãy để mọi thứ tự nhiên, đừng gượng ép."
 ];
 
-vt = Math.floor(Math.random() * 53) + 1;
-if (vt == 53) {
-  ca.innerHTML = arrText[vt - 1];
+let joker = Math.floor(Math.random() * 53) + 1;
+if (joker == 53) {
+  ca.innerHTML = arrText[joker - 1];
   pp.src = `cards/53.png`;
 } else {
   ca.innerHTML = arrText[vt * 13 + so - 1];
