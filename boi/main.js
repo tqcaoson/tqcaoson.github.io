@@ -64,9 +64,9 @@ let arrText = [
   "Phăng teo. Quân bài của số mệnh. Nó không phải là một điềm gở cũng như điềm lành con ạ. Ý nghĩa của nó là chuyện gì đến sẽ đến, nếu con mong chờ một điều gì đó thì cũng không phải sổt ruột. Thày nghĩ là con hãy để mọi thứ tự nhiên, đừng gượng ép."
 ];
 
-vt = vt * 13 + so - 1;
-ca.innerHTML = arrText[vt];
-pp.src = vt < 52 ? `cards/${so + chu}.png` : `cards/53.png`;
+ca.innerHTML = arrText[vt * 13 + so];
+vt = Math.floor(Math.random() * 53) + 1;
+pp.src = vt <= 52 ? `cards/${so + chu}.png` : `cards/53.png`;
 
 card.addEventListener("click", function (e) {
   card.classList.toggle('is-flipped');
