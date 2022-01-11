@@ -68,7 +68,7 @@ vt = Math.floor(Math.random() * 53) + 1;
 if (vt == 53) {
   ca.innerHTML = arrText[vt - 1];
   pp.src = `cards/53.png`;
-} esle {
+} else {
   ca.innerHTML = arrText[vt * 13 + so - 1];
   pp.src = `cards/${so + chu}.png`;
 }
