@@ -65,6 +65,12 @@ function renderHome() {
 
   const app = $("#app");
   app.innerHTML = `
+    <nav class="site-nav">
+      <a href="index.html" class="active">📝 Luyện đề</a>
+      <a href="mindmap.html">🧠 Mindmap</a>
+      <a href="cheatsheet.html">📋 Cheatsheet</a>
+      <a href="vocab.html">🔤 Từ vựng</a>
+    </nav>
     <div class="topbar">
       <div class="brand">
         <span class="mark">PSM I</span>

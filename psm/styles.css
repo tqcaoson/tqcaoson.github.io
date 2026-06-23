@@ -51,6 +51,34 @@ body::before {
 
 a { color: var(--scrum-green-dark); }
 
+/* ---------- Site nav ---------- */
+.site-nav {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-bottom: 22px;
+}
+.site-nav a {
+  font-family: var(--mono);
+  font-size: 12.5px;
+  text-decoration: none;
+  color: var(--ink-soft);
+  border: 1.5px solid var(--line);
+  border-radius: 7px;
+  padding: 7px 14px;
+  transition: border-color 0.12s ease, color 0.12s ease, background 0.12s ease;
+}
+.site-nav a:hover {
+  border-color: var(--ink);
+  color: var(--ink);
+  background: rgba(11,31,26,0.04);
+}
+.site-nav a.active {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--paper);
+}
+
 /* ---------- Top bar ---------- */
 .topbar {
   display: flex;

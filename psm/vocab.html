@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Từ vựng PSM I — Scrum Glossary</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css" />
+<style>
+  .vocab-toolbar {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 18px;
+    flex-wrap: wrap;
+  }
+  .vocab-toolbar input[type="text"] {
+    flex: 1;
+    min-width: 200px;
+    font-family: var(--sans);
+    font-size: 14px;
+    padding: 9px 14px;
+    border: 1.5px solid var(--ink);
+    border-radius: 7px;
+    background: #fff;
+  }
+  .vocab-toolbar input[type="text"]:focus { outline: none; border-color: var(--scrum-green); }
+  .group-filter {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+  }
+  .group-chip {
+    font-family: var(--mono);
+    font-size: 12px;
+    padding: 5px 12px;
+    border-radius: 99px;
+    border: 1.5px solid var(--line);
+    background: #fff;
+    color: var(--ink-soft);
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  .group-chip.active {
+    background: var(--scrum-green);
+    border-color: var(--scrum-green-dark);
+    color: #fff;
+  }
+  .vocab-count {
+    font-family: var(--mono);
+    font-size: 12.5px;
+    color: var(--ink-soft);
+    margin-bottom: 14px;
+  }
+  .vocab-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+  @media (max-width: 640px) { .vocab-grid { grid-template-columns: 1fr; } }
+  .vocab-card {
+    background: #fff;
+    border: 1.5px solid var(--line);
+    border-radius: 9px;
+    padding: 13px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .vocab-card .term {
+    font-family: var(--serif);
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--ink);
+  }
+  .vocab-card .vi {
+    font-size: 14px;
+    color: var(--ink-soft);
+    line-height: 1.4;
+  }
+  .vocab-card .group-tag {
+    align-self: flex-start;
+    font-family: var(--mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--scrum-green-dark);
+    background: var(--scrum-green-light);
+    padding: 2px 7px;
+    border-radius: 4px;
+    margin-bottom: 4px;
+  }
+  .no-results {
+    text-align: center;
+    color: var(--ink-soft);
+    font-size: 14px;
+    padding: 40px 0;
+  }
+</style>
+</head>
+<body>
+<div id="app">
+  <nav class="site-nav">
+    <a href="index.html">📝 Luyện đề</a>
+    <a href="mindmap.html">🧠 Mindmap</a>
+    <a href="cheatsheet.html">📋 Cheatsheet</a>
+    <a href="vocab.html" class="active">🔤 Từ vựng</a>
+  </nav>
+  <div class="topbar">
+    <div class="brand">
+      <span class="mark">PSM I</span>
+      <div>
+        <h1>Từ vựng Scrum</h1>
+        <div class="sub" id="vocabSub">Đang tải…</div>
+      </div>
+    </div>
+  </div>
+
+  <p class="intro">
+    Danh sách thuật ngữ chuyên ngành Scrum và quản lý dự án thường gặp trong đề thi PSM I,
+    kèm bản dịch tiếng Việt. Dùng ô tìm kiếm hoặc bộ lọc nhóm bên dưới để tra cứu nhanh.
+  </p>
+
+  <div class="vocab-toolbar">
+    <input type="text" id="searchInput" placeholder="Tìm từ vựng (tiếng Anh hoặc tiếng Việt)…" />
+  </div>
+
+  <div class="group-filter" id="groupFilter"></div>
+
+  <div class="vocab-count" id="vocabCount"></div>
+  <div class="vocab-grid" id="vocabGrid"></div>
+  <div class="no-results" id="noResults" style="display:none;">Không tìm thấy từ vựng phù hợp.</div>
+
+  <div class="app-footer">PSM I Practice · Từ vựng tổng hợp từ ngữ cảnh đề thi, không phải bảng thuật ngữ chính thức của Scrum.org</div>
+</div>
+
+<script src="vocab-data.js"></script>
+<script>
+  const GROUP_LABELS = {
+    Roles: "Vai trò",
+    Events: "Sự kiện",
+    Artifacts: "Tạo tác",
+    Theory: "Lý thuyết & Giá trị",
+    Other: "Khái niệm khác",
+    Management: "Quản lý",
+    Planning: "Lập kế hoạch",
+    Scaling: "Mở rộng quy mô",
+    Quality: "Chất lượng",
+  };
+
+  const $ = (sel, root = document) => root.querySelector(sel);
+  const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
+
+  const VOCAB = window.PSM1_VOCAB || [];
+  let activeGroup = "ALL";
+  let searchQuery = "";
+
+  function init() {
+    $("#vocabSub").textContent = `${VOCAB.length} thuật ngữ · ${Object.keys(GROUP_LABELS).length} nhóm`;
+    renderGroupFilter();
+    render();
+    $("#searchInput").addEventListener("input", (e) => {
+      searchQuery = e.target.value.trim().toLowerCase();
+      render();
+    });
+  }
+
+  function renderGroupFilter() {
+    const el = $("#groupFilter");
+    const groups = ["ALL", ...Object.keys(GROUP_LABELS)];
+    el.innerHTML = groups.map(g => {
+      const label = g === "ALL" ? "Tất cả" : GROUP_LABELS[g];
+      return `<button class="group-chip ${g === activeGroup ? "active" : ""}" data-group="${g}">${label}</button>`;
+    }).join("");
+    $$(".group-chip", el).forEach(chip => {
+      chip.addEventListener("click", () => {
+        activeGroup = chip.dataset.group;
+        renderGroupFilter();
+        render();
+      });
+    });
+  }
+
+  function render() {
+    let filtered = VOCAB;
+    if (activeGroup !== "ALL") {
+      filtered = filtered.filter(v => v.group === activeGroup);
+    }
+    if (searchQuery) {
+      filtered = filtered.filter(v =>
+        v.term.toLowerCase().includes(searchQuery) ||
+        v.vi.toLowerCase().includes(searchQuery)
+      );
+    }
+
+    $("#vocabCount").textContent = `Hiển thị ${filtered.length} / ${VOCAB.length} thuật ngữ`;
+
+    const grid = $("#vocabGrid");
+    const noResults = $("#noResults");
+
+    if (filtered.length === 0) {
+      grid.innerHTML = "";
+      noResults.style.display = "block";
+      return;
+    }
+    noResults.style.display = "none";
+
+    grid.innerHTML = filtered.map(v => `
+      <div class="vocab-card">
+        <span class="group-tag">${GROUP_LABELS[v.group] || v.group}</span>
+        <div class="term">${escapeHtml(v.term)}</div>
+        <div class="vi">${escapeHtml(v.vi)}</div>
+      </div>
+    `).join("");
+  }
+
+  function escapeHtml(str) {
+    if (str == null) return "";
+    return String(str)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#39;");
+  }
+
+  window.addEventListener("DOMContentLoaded", init);
+</script>
+</body>
+</html>

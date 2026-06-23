@@ -1,0 +1,100 @@
+window.PSM1_VOCAB = [
+  // ---- Roles (Vai trò) ----
+  { term: "Scrum Team", vi: "Nhóm Scrum", group: "Roles" },
+  { term: "Product Owner (PO)", vi: "Người sở hữu sản phẩm", group: "Roles" },
+  { term: "Scrum Master (SM)", vi: "Người điều phối Scrum", group: "Roles" },
+  { term: "Developers", vi: "Nhóm phát triển", group: "Roles" },
+  { term: "Stakeholder", vi: "Bên liên quan", group: "Roles" },
+  { term: "Self-managing", vi: "Tự quản", group: "Roles" },
+  { term: "Cross-functional", vi: "Đa năng / liên chức năng", group: "Roles" },
+
+  // ---- Events (Sự kiện) ----
+  { term: "Sprint", vi: "Sprint (chu kỳ phát triển)", group: "Events" },
+  { term: "Sprint Planning", vi: "Lập kế hoạch Sprint", group: "Events" },
+  { term: "Daily Scrum", vi: "Họp đứng hàng ngày", group: "Events" },
+  { term: "Sprint Review", vi: "Đánh giá Sprint", group: "Events" },
+  { term: "Sprint Retrospective", vi: "Họp nhìn lại Sprint", group: "Events" },
+  { term: "Product Backlog Refinement", vi: "Tinh chỉnh Product Backlog", group: "Events" },
+  { term: "Time-box", vi: "Khung thời gian cố định", group: "Events" },
+
+  // ---- Artifacts & Commitments (Tạo tác & Cam kết) ----
+  { term: "Product Backlog", vi: "Danh sách công việc sản phẩm", group: "Artifacts" },
+  { term: "Sprint Backlog", vi: "Danh sách công việc Sprint", group: "Artifacts" },
+  { term: "Increment", vi: "Phần tăng trưởng sản phẩm", group: "Artifacts" },
+  { term: "Product Goal", vi: "Mục tiêu sản phẩm", group: "Artifacts" },
+  { term: "Sprint Goal", vi: "Mục tiêu Sprint", group: "Artifacts" },
+  { term: "Definition of Done (DoD)", vi: "Định nghĩa hoàn thành", group: "Artifacts" },
+  { term: "Forecast", vi: "Dự báo (công việc)", group: "Artifacts" },
+
+  // ---- Theory & Values (Lý thuyết & Giá trị) ----
+  { term: "Empiricism", vi: "Tính thực nghiệm", group: "Theory" },
+  { term: "Transparency", vi: "Minh bạch", group: "Theory" },
+  { term: "Inspection", vi: "Thanh tra / kiểm tra", group: "Theory" },
+  { term: "Adaptation", vi: "Thích nghi / điều chỉnh", group: "Theory" },
+  { term: "Commitment", vi: "Cam kết", group: "Theory" },
+  { term: "Openness", vi: "Cởi mở", group: "Theory" },
+  { term: "Focus", vi: "Tập trung", group: "Theory" },
+  { term: "Respect", vi: "Tôn trọng", group: "Theory" },
+  { term: "Courage", vi: "Can đảm", group: "Theory" },
+
+  // ---- Khái niệm khác hay gặp ----
+  { term: "Impediment", vi: "Trở ngại / rào cản", group: "Other" },
+  { term: "Velocity", vi: "Vận tốc làm việc (không chính thức trong Scrum Guide)", group: "Other" },
+  { term: "Burndown Chart", vi: "Biểu đồ giảm việc còn lại", group: "Other" },
+  { term: "Burn-up Chart", vi: "Biểu đồ tăng việc đã hoàn thành", group: "Other" },
+  { term: "Technical debt", vi: "Nợ kỹ thuật", group: "Other" },
+  { term: "Regulatory compliance", vi: "Tuân thủ quy định pháp lý", group: "Other" },
+  { term: "Component team", vi: "Nhóm theo thành phần kỹ thuật", group: "Other" },
+  { term: "Feature team", vi: "Nhóm theo tính năng", group: "Other" },
+  { term: "Potentially releasable", vi: "Có thể phát hành được", group: "Other" },
+  { term: "Done (status)", vi: "Hoàn thành (trạng thái)", group: "Other" },
+  { term: "Framework", vi: "Khung làm việc", group: "Other" },
+
+  // ---- Quản lý / Quy trình (bổ sung) ----
+  { term: "Project Manager", vi: "Quản lý dự án (không có trong Scrum)", group: "Management" },
+  { term: "Business Analyst", vi: "Chuyên viên phân tích nghiệp vụ (không có trong Scrum)", group: "Management" },
+  { term: "Functional manager / Line manager", vi: "Quản lý theo chức năng / quản lý trực tiếp", group: "Management" },
+  { term: "Management", vi: "Ban quản lý / quản lý cấp trên", group: "Management" },
+  { term: "Organization", vi: "Tổ chức", group: "Management" },
+  { term: "Hierarchy", vi: "Hệ thống cấp bậc", group: "Management" },
+  { term: "Title (job title)", vi: "Chức danh", group: "Management" },
+  { term: "Role", vi: "Vai trò", group: "Management" },
+  { term: "Accountability / Accountable", vi: "Trách nhiệm / chịu trách nhiệm", group: "Management" },
+  { term: "Leadership", vi: "Vai trò lãnh đạo", group: "Management" },
+  { term: "Servant leader", vi: "Người lãnh đạo phục vụ", group: "Management" },
+  { term: "Facilitate / Facilitation", vi: "Điều phối / hỗ trợ điều phối", group: "Management" },
+  { term: "Coaching", vi: "Huấn luyện / khai vấn", group: "Management" },
+
+  // ---- Lập kế hoạch & Ước lượng ----
+  { term: "Estimate / Estimation", vi: "Ước lượng", group: "Planning" },
+  { term: "Story point", vi: "Điểm câu chuyện (đơn vị ước lượng)", group: "Planning" },
+  { term: "Forecast", vi: "Dự báo", group: "Planning" },
+  { term: "Capacity", vi: "Năng lực (khối lượng có thể làm)", group: "Planning" },
+  { term: "Scope", vi: "Phạm vi công việc", group: "Planning" },
+  { term: "Risk", vi: "Rủi ro", group: "Planning" },
+  { term: "Dependency / Dependencies", vi: "Sự phụ thuộc", group: "Planning" },
+  { term: "Use Case", vi: "Trường hợp sử dụng", group: "Planning" },
+  { term: "Acceptance test / Acceptance criteria", vi: "Kiểm thử chấp nhận / tiêu chí chấp nhận", group: "Planning" },
+
+  // ---- Cấu trúc team & Quy trình mở rộng ----
+  { term: "Hardening Sprint", vi: "Sprint gia cố (không có trong Scrum)", group: "Scaling" },
+  { term: "Release Sprint", vi: "Sprint phát hành (không có trong Scrum)", group: "Scaling" },
+  { term: "Release Planning", vi: "Lập kế hoạch phát hành", group: "Scaling" },
+  { term: "Sprint 0", vi: "Sprint số 0 (không có trong Scrum)", group: "Scaling" },
+  { term: "Integration / Integrated Increment", vi: "Tích hợp / Increment tích hợp", group: "Scaling" },
+  { term: "Proxy Product Owner", vi: "PO đại diện (không chính thức)", group: "Scaling" },
+  { term: "Chief Product Owner", vi: "PO trưởng (không chính thức)", group: "Scaling" },
+  { term: "Triage meeting", vi: "Họp phân loại ưu tiên", group: "Scaling" },
+  { term: "Pull (pull work)", vi: "Kéo việc (tự nhận task)", group: "Scaling" },
+
+  // ---- Chất lượng & Cải tiến ----
+  { term: "Quality Assurance (QA)", vi: "Đảm bảo chất lượng", group: "Quality" },
+  { term: "Test Driven Development", vi: "Phát triển hướng kiểm thử", group: "Quality" },
+  { term: "Process improvement", vi: "Cải tiến quy trình", group: "Quality" },
+  { term: "Non-functional requirement", vi: "Yêu cầu phi chức năng", group: "Quality" },
+  { term: "Security", vi: "An toàn / bảo mật", group: "Quality" },
+  { term: "Compliance", vi: "Tuân thủ", group: "Quality" },
+  { term: "Refinement", vi: "Tinh chỉnh", group: "Quality" },
+  { term: "Gantt chart", vi: "Biểu đồ Gantt (không có trong Scrum)", group: "Quality" },
+  { term: "Resource allocation", vi: "Phân bổ nguồn lực", group: "Quality" },
+];

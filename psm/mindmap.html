@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>PSM I Mindmap</title>
+<style>
+  :root{
+    --bg:#0f1115;
+    --panel:#161922;
+    --text:#e8eaf0;
+    --muted:#8b91a3;
+    --line:#2a2f3d;
+
+    --c-theory:#7c9eff;
+    --c-roles:#ff8c5a;
+    --c-events:#4fd1a5;
+    --c-artifacts:#ffd166;
+    --c-rules:#e879c4;
+    --c-values:#9d8cff;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:"Segoe UI",system-ui,-apple-system,sans-serif;
+    padding:32px 16px 80px;
+  }
+  .wrap{max-width:1180px;margin:0 auto;}
+  .title{
+    text-align:center;
+    margin-bottom:6px;
+    font-size:28px;
+    font-weight:800;
+    letter-spacing:0.5px;
+  }
+  .subtitle{
+    text-align:center;
+    color:var(--muted);
+    margin-bottom:36px;
+    font-size:14px;
+  }
+  .root{
+    display:flex;
+    justify-content:center;
+    margin-bottom:40px;
+  }
+  .root-badge{
+    background:linear-gradient(135deg,#3b6dff,#7c9eff);
+    color:#fff;
+    padding:14px 36px;
+    border-radius:40px;
+    font-weight:800;
+    font-size:20px;
+    box-shadow:0 8px 24px rgba(59,109,255,0.35);
+    letter-spacing:1px;
+  }
+  .groups{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:18px;
+  }
+  .group{
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:18px 18px 20px;
+    border-top:4px solid var(--accent);
+  }
+  .group h2{
+    margin:0 0 14px;
+    font-size:16px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+    color:var(--accent);
+  }
+  .dot{
+    width:10px;height:10px;border-radius:50%;
+    background:var(--accent);
+    flex:none;
+  }
+  .branch{
+    margin-bottom:12px;
+    padding-left:14px;
+    border-left:2px solid var(--line);
+  }
+  .branch:last-child{margin-bottom:0;}
+  .branch-title{
+    font-weight:700;
+    font-size:14px;
+    margin-bottom:6px;
+    color:var(--text);
+  }
+  .leaf-list{
+    list-style:none;
+    margin:0;
+    padding:0;
+    display:flex;
+    flex-direction:column;
+    gap:4px;
+  }
+  .leaf-list li{
+    font-size:12.5px;
+    color:var(--muted);
+    padding:3px 10px;
+    background:rgba(255,255,255,0.03);
+    border-radius:6px;
+    line-height:1.4;
+  }
+  .leaf-list li b{color:var(--text);font-weight:600;}
+  .tag{
+    display:inline-block;
+    font-size:10px;
+    font-weight:700;
+    padding:1px 6px;
+    border-radius:4px;
+    margin-left:6px;
+    vertical-align:middle;
+  }
+  .tag.new{background:rgba(79,209,165,0.15);color:#4fd1a5;}
+  .tag.fix{background:rgba(255,209,102,0.15);color:#ffd166;}
+  .legend{
+    margin-top:36px;
+    display:flex;
+    justify-content:center;
+    gap:18px;
+    flex-wrap:wrap;
+    font-size:12px;
+    color:var(--muted);
+  }
+  .legend span{display:flex;align-items:center;gap:6px;}
+  .legend i{width:10px;height:10px;border-radius:50%;display:inline-block;}
+
+  .g-theory{--accent:var(--c-theory);}
+  .g-roles{--accent:var(--c-roles);}
+  .g-events{--accent:var(--c-events);}
+  .g-artifacts{--accent:var(--c-artifacts);}
+  .g-rules{--accent:var(--c-rules);}
+  .g-values{--accent:var(--c-values);}
+
+  @media (max-width:600px){
+    .title{font-size:22px;}
+    .root-badge{font-size:16px;padding:12px 26px;}
+  }
+
+  .site-nav {
+    display:flex;
+    gap:6px;
+    flex-wrap:wrap;
+    margin-bottom:24px;
+    max-width:1180px;
+    margin-left:auto;
+    margin-right:auto;
+  }
+  .site-nav a {
+    font-family: monospace;
+    font-size:12.5px;
+    text-decoration:none;
+    color:var(--muted);
+    border:1.5px solid var(--line);
+    border-radius:7px;
+    padding:7px 14px;
+    transition: border-color 0.12s ease, color 0.12s ease;
+  }
+  .site-nav a:hover { border-color:#7c9eff; color:var(--text); }
+  .site-nav a.active { background:#7c9eff; border-color:#7c9eff; color:#0f1115; font-weight:700; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav class="site-nav">
+    <a href="index.html">📝 Luyện đề</a>
+    <a href="mindmap.html" class="active">🧠 Mindmap</a>
+    <a href="cheatsheet.html">📋 Cheatsheet</a>
+    <a href="vocab.html">🔤 Từ vựng</a>
+  </nav>
+  <div class="title">🧠 PSM I Mindmap</div>
+  <div class="subtitle">Scrum Guide 2020 — sơ đồ phân nhóm để ôn thi</div>
+
+  <div class="root"><div class="root-badge">SCRUM</div></div>
+
+  <div class="groups">
+
+    <!-- THEORY -->
+    <div class="group g-theory">
+      <h2><span class="dot"></span>Scrum Theory <span class="tag new">MỚI</span></h2>
+      <div class="branch">
+        <div class="branch-title">Empiricism (3 Pillars)</div>
+        <ul class="leaf-list">
+          <li><b>Transparency</b> — minh bạch thông tin</li>
+          <li><b>Inspection</b> — thanh tra thường xuyên</li>
+          <li><b>Adaptation</b> — thích nghi sớm nhất có thể</li>
+        </ul>
+      </div>
+      <div class="branch">
+        <div class="branch-title">Lean Thinking</div>
+        <ul class="leaf-list">
+          <li>Giảm waste, tập trung điều cốt lõi</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ROLES -->
+    <div class="group g-roles">
+      <h2><span class="dot"></span>Roles <span class="tag fix">ĐÃ HOÀN THIỆN</span></h2>
+      <div class="branch">
+        <div class="branch-title">Product Owner</div>
+        <ul class="leaf-list">
+          <li>Accountable: <b>giá trị Product</b></li>
+          <li>Quản lý Product Backlog, tạo Product Goal</li>
+          <li>1 người duy nhất, không phải committee</li>
+          <li>Quyền duy nhất: <b>cancel Sprint</b></li>
+        </ul>
+      </div>
+      <div class="branch">
+        <div class="branch-title">Scrum Master</div>
+        <ul class="leaf-list">
+          <li>Accountable: <b>hiệu quả Scrum Team</b></li>
+          <li>Phục vụ: Team / PO / Tổ chức</li>
+          <li>Coach, remove impediment, đảm bảo Event diễn ra</li>
+          <li>Không quản lý nhân sự Developers</li>
+        </ul>
+      </div>
+      <div class="branch">
+        <div class="branch-title">Developers</div>
+        <ul class="leaf-list">
+          <li>Accountable: tạo ra <b>Increment</b></li>
+          <li>Tạo Sprint Backlog & Definition of Done</li>
+          <li>Self-managing + cross-functional</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- EVENTS -->
+    <div class="group g-events">
+      <h2><span class="dot"></span>Events <span class="tag fix">ĐÃ SỬA LỖI THỜI LƯỢNG</span></h2>
+      <div class="branch">
+        <div class="branch-title">Sprint — ≤ 1 tháng</div>
+        <ul class="leaf-list"><li>Container của mọi Event khác</li></ul>
+      </div>
+      <div class="branch">
+        <div class="branch-title">Sprint Planning — ≤ 8h</div>
+        <ul class="leaf-list">
+          <li>3 câu hỏi: <b>Why / What / How</b></li>
+        </ul>
+      </div>
+      <div class="branch">
+        <div class="branch-title">Daily Scrum — ≤ 15 phút</div>
+        <ul class="leaf-list"><li>Chỉ Developers, inspect progress</li></ul>
+      </div>
+      <div class="branch">
+        <div class="branch-title">Sprint Review — ≤ 4h ✅</div>
+        <ul class="leaf-list"><li>Scrum Team + Stakeholders, inspect Increment</li></ul>
+      </div>
+      <div class="branch">
+        <div class="branch-title">Sprint Retro — ≤ 3h ✅</div>
+        <ul class="leaf-list"><li>Toàn Team, inspect cách làm việc</li></ul>
+      </div>
+    </div>
+
+    <!-- ARTIFACTS -->
+    <div class="group g-artifacts">
+      <h2><span class="dot"></span>Artifacts & Commitments</h2>
+      <div class="branch">
+        <div class="branch-title">Product Backlog</div>
+        <ul class="leaf-list">
+          <li>Belongs to: PO</li>
+          <li>Commitment: <b>Product Goal</b> <span class="tag new">MỚI</span></li>
+        </ul>
+      </div>
+      <div class="branch">
+        <div class="branch-title">Sprint Backlog</div>
+        <ul class="leaf-list">
+          <li>Belongs to: <b>Developers</b></li>
+          <li>Commitment: <b>Sprint Goal</b></li>
+        </ul>
+      </div>
+      <div class="branch">
+        <div class="branch-title">Increment</div>
+        <ul class="leaf-list">
+          <li>Created by: Developers</li>
+          <li>Commitment: <b>Definition of Done</b> <span class="tag new">MỚI</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- RULES / DOD / SCALING -->
+    <div class="group g-rules">
+      <h2><span class="dot"></span>Rules & Mở rộng <span class="tag new">MỚI</span></h2>
+      <div class="branch">
+        <div class="branch-title">Definition of Done</div>
+        <ul class="leaf-list">
+          <li>Created by: <b>Developers</b></li>
+          <li>Chuẩn tối thiểu nếu tổ chức có DoD chung</li>
+          <li>Không đạt DoD → quay lại Product Backlog</li>
+        </ul>
+      </div>
+      <div class="branch">
+        <div class="branch-title">Scaling Scrum</div>
+        <ul class="leaf-list">
+          <li>1 Product Backlog dùng chung nhiều team</li>
+          <li>1 Product Owner chung (có thể có proxy)</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- VALUES -->
+    <div class="group g-values">
+      <h2><span class="dot"></span>5 Scrum Values <span class="tag fix">ĐÃ BỔ SUNG</span></h2>
+      <div class="branch">
+        <ul class="leaf-list">
+          <li><b>Commitment</b> <span class="tag fix">thiếu trong hình gốc</span></li>
+          <li><b>Focus</b></li>
+          <li><b>Openness</b></li>
+          <li><b>Respect</b></li>
+          <li><b>Courage</b></li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="legend">
+    <span><i style="background:#4fd1a5"></i> Phần mới bổ sung hoàn toàn</span>
+    <span><i style="background:#ffd166"></i> Phần đã sửa lỗi so với hình gốc</span>
+    <span><i style="background:#8b91a3"></i> Phần giữ nguyên, chuẩn hoá lại</span>
+  </div>
+</div>
+</body>
+</html>

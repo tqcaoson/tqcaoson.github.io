@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PSM I Cheatsheet</title>
+<style>
+  :root{
+    --bg:#0f1115;
+    --panel:#161922;
+    --text:#e8eaf0;
+    --muted:#8b91a3;
+    --line:#2a2f3d;
+    --accent:#7c9eff;
+    --good:#4fd1a5;
+    --warn:#ffd166;
+    --bad:#ff6b6b;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:"Segoe UI",system-ui,-apple-system,sans-serif;
+    padding:32px 16px 80px;
+    line-height:1.6;
+  }
+  .wrap{max-width:980px;margin:0 auto;}
+  .title{
+    text-align:center;
+    margin-bottom:6px;
+    font-size:28px;
+    font-weight:800;
+  }
+  .subtitle{
+    text-align:center;
+    color:var(--muted);
+    margin-bottom:32px;
+    font-size:14px;
+  }
+  section{
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:20px 22px;
+    margin-bottom:18px;
+  }
+  h2{
+    margin:0 0 14px;
+    font-size:18px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+    color:var(--accent);
+  }
+  table{
+    width:100%;
+    border-collapse:collapse;
+    font-size:13.5px;
+    margin-bottom:6px;
+  }
+  th, td{
+    border:1px solid var(--line);
+    padding:8px 10px;
+    text-align:left;
+    vertical-align:top;
+  }
+  th{
+    background:rgba(124,158,255,0.08);
+    color:var(--accent);
+    font-weight:700;
+  }
+  tr:nth-child(even) td{ background:rgba(255,255,255,0.02); }
+  .note{
+    font-size:13px;
+    color:var(--warn);
+    background:rgba(255,209,102,0.08);
+    border-left:3px solid var(--warn);
+    padding:10px 14px;
+    border-radius:0 8px 8px 0;
+    margin-top:10px;
+  }
+  ul{ margin:0; padding-left:20px; }
+  li{ margin-bottom:6px; font-size:14px; }
+  b, strong{ color:#fff; }
+  .pill{
+    display:inline-block;
+    font-family:monospace;
+    font-size:12px;
+    font-weight:700;
+    background:rgba(124,158,255,0.15);
+    color:var(--accent);
+    padding:2px 8px;
+    border-radius:6px;
+  }
+  .trap-table td:first-child{ color:var(--bad); }
+  .trap-table td:last-child{ color:var(--good); }
+  .tip-list li{ margin-bottom:10px; }
+  blockquote{
+    margin:0 0 10px;
+    padding:8px 14px;
+    background:rgba(124,158,255,0.06);
+    border-left:3px solid var(--accent);
+    border-radius:0 8px 8px 0;
+    font-size:13.5px;
+    color:var(--muted);
+  }
+  .arrow-line{
+    font-size:13.5px;
+    color:var(--muted);
+    margin-top:8px;
+  }
+  .site-nav {
+    display:flex;
+    gap:6px;
+    flex-wrap:wrap;
+    margin-bottom:24px;
+    max-width:980px;
+    margin-left:auto;
+    margin-right:auto;
+  }
+  .site-nav a {
+    font-family: monospace;
+    font-size:12.5px;
+    text-decoration:none;
+    color:var(--muted);
+    border:1.5px solid var(--line);
+    border-radius:7px;
+    padding:7px 14px;
+    transition: border-color 0.12s ease, color 0.12s ease;
+  }
+  .site-nav a:hover { border-color:var(--accent); color:var(--text); }
+  .site-nav a.active { background:var(--accent); border-color:var(--accent); color:#0f1115; font-weight:700; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav class="site-nav">
+    <a href="index.html">📝 Luyện đề</a>
+    <a href="mindmap.html">🧠 Mindmap</a>
+    <a href="cheatsheet.html" class="active">📋 Cheatsheet</a>
+    <a href="vocab.html">🔤 Từ vựng</a>
+  </nav>
+  <div class="title">📋 PSM I Cheatsheet</div>
+  <div class="subtitle">Ôn nhanh trước thi — Scrum Guide 2020</div>
+
+  <section>
+    <h2>⏱️ Time-box <span style="font-size:12px;color:var(--muted);font-weight:400;">(học thuộc — hay ra đề số liệu)</span></h2>
+    <table>
+      <tr><th>Event</th><th>Time-box (Sprint 1 tháng)</th><th>Ai tham gia</th><th>Ai dẫn dắt</th></tr>
+      <tr><td>Sprint</td><td>≤ 1 tháng</td><td>Toàn Scrum Team</td><td>—</td></tr>
+      <tr><td>Sprint Planning</td><td>≤ 8 giờ</td><td>Toàn Scrum Team</td><td>Scrum Master (facilitate)</td></tr>
+      <tr><td>Daily Scrum</td><td>≤ 15 phút</td><td>Developers</td><td>Developers (tự tổ chức)</td></tr>
+      <tr><td>Sprint Review</td><td>≤ 4 giờ</td><td>Scrum Team + Stakeholders</td><td>Product Owner (chủ trì)</td></tr>
+      <tr><td>Sprint Retro</td><td>≤ 3 giờ</td><td>Toàn Scrum Team</td><td>Scrum Master (facilitate)</td></tr>
+      <tr><td>PB Refinement</td><td>Không time-box cố định, ≤10% capacity Developers</td><td>PO + Developers</td><td>—</td></tr>
+    </table>
+    <div class="note">⚠️ Nếu Sprint ngắn hơn 1 tháng, time-box các Event thường ngắn theo tỉ lệ — nhưng đề thi PSM I gần như luôn lấy mốc Sprint 1 tháng.</div>
+  </section>
+
+  <section>
+    <h2>👥 Roles — Ai làm gì, Ai chịu trách nhiệm gì</h2>
+    <table>
+      <tr><th>Role</th><th>Accountable cho</th><th>Việc chính</th><th>KHÔNG được làm</th></tr>
+      <tr><td><b>Product Owner</b></td><td>Giá trị (Value) của Product</td><td>Quản lý PB, tạo Product Goal, sắp thứ tự PB</td><td>Không tự ý đổi Sprint Backlog của DT</td></tr>
+      <tr><td><b>Scrum Master</b></td><td>Hiệu quả (Effectiveness) của Scrum Team</td><td>Coach, remove impediments, đảm bảo Event diễn ra</td><td>Không giao việc cho Developers, không là Project Manager</td></tr>
+      <tr><td><b>Developers</b></td><td>Tạo ra Increment đạt DoD</td><td>Lập &amp; thực hiện Sprint Backlog</td><td>Không tự đổi Sprint Goal</td></tr>
+    </table>
+    <ul style="margin-top:10px;">
+      <li>1 PO = <b>1 người</b>, không phải committee.</li>
+      <li>Chỉ <b>Product Owner</b> mới có quyền <b>cancel Sprint</b>.</li>
+      <li>Chỉ <b>Developers</b> được sửa <b>Sprint Backlog</b> trong Sprint.</li>
+      <li>Chỉ <b>Developers</b> tạo ra <b>Definition of Done</b>.</li>
+      <li>Scrum Team = self-managing + cross-functional, không có hierarchy nội bộ.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>📦 Artifacts &amp; Commitments <span style="font-size:12px;color:var(--muted);font-weight:400;">(rất hay bị hỏi chéo)</span></h2>
+    <table>
+      <tr><th>Artifact</th><th>Belongs to</th><th>Commitment</th><th>Created by</th></tr>
+      <tr><td>Product Backlog</td><td>Product Owner</td><td><b>Product Goal</b></td><td>PO sở hữu, cả team góp ý</td></tr>
+      <tr><td>Sprint Backlog</td><td>Developers</td><td><b>Sprint Goal</b></td><td>Developers (trong Sprint Planning)</td></tr>
+      <tr><td>Increment</td><td>Developers</td><td><b>Definition of Done</b></td><td>Developers</td></tr>
+    </table>
+    <div class="note" style="color:var(--text); border-left-color:var(--accent); background:rgba(124,158,255,0.08);">
+      <b>Bẫy hay gặp:</b> "Ai sở hữu Sprint Backlog?" → <b>Developers</b>, không phải PO hay SM.
+    </div>
+  </section>
+
+  <section>
+    <h2>✅ Definition of Done (DoD)</h2>
+    <ul>
+      <li>Do <b>Developers</b> tạo ra.</li>
+      <li>Nếu tổ chức có DoD chung → là <b>tiêu chuẩn tối thiểu</b>, team có thể làm chặt hơn, không được lơi hơn.</li>
+      <li>PB item không đạt DoD → <b>không được gọi là Increment</b>, quay lại Product Backlog.</li>
+      <li>Dùng để tạo <b>Transparency</b> cho Artifact Increment.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>🔺 3 Pillars of Empiricism</h2>
+    <ul>
+      <li><b>Transparency</b> — Minh bạch: thông tin phải rõ ràng cho người quan sát</li>
+      <li><b>Inspection</b> — Thanh tra: kiểm tra thường xuyên Artifact &amp; tiến độ</li>
+      <li><b>Adaptation</b> — Thích nghi: điều chỉnh càng sớm càng tốt nếu phát hiện lệch hướng</li>
+    </ul>
+    <div class="arrow-line">→ Nếu Transparency yếu → Inspection sai lệch → Adaptation gây hại (waste).</div>
+  </section>
+
+  <section>
+    <h2>💎 5 Scrum Values</h2>
+    <blockquote><b>C.O.F.R.C</b> (dễ nhớ): Commitment – Openness – Focus – Respect – Courage</blockquote>
+    <ul>
+      <li><b>Commitment</b>: cam kết đạt mục tiêu, hỗ trợ nhau</li>
+      <li><b>Openness</b>: minh bạch về công việc &amp; khó khăn</li>
+      <li><b>Focus</b>: tập trung vào Sprint Goal</li>
+      <li><b>Respect</b>: tôn trọng nhau như chuyên gia có năng lực tự quản</li>
+      <li><b>Courage</b>: dũng cảm làm điều đúng, đối mặt vấn đề khó</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>🎯 Goals — 3 loại Goal hay bị nhầm</h2>
+    <table>
+      <tr><th>Goal</th><th>Thuộc về</th><th>Mô tả</th></tr>
+      <tr><td><b>Product Goal</b></td><td>Product Backlog</td><td>Mục tiêu dài hạn, future state của Product</td></tr>
+      <tr><td><b>Sprint Goal</b></td><td>Sprint Backlog</td><td>Mục tiêu duy nhất của 1 Sprint, không đổi giữa Sprint</td></tr>
+      <tr><td><b>Definition of Done</b></td><td>Increment</td><td>Tiêu chuẩn chất lượng "hoàn thành"</td></tr>
+    </table>
+  </section>
+
+  <section>
+    <h2>🔁 Sprint — Quy tắc cốt lõi</h2>
+    <ul>
+      <li>Độ dài cố định ≤ 1 tháng → giảm complexity, tạo nhịp đều (cadence).</li>
+      <li>Trong Sprint:
+        <ul style="margin-top:6px;">
+          <li>❌ Không giảm chất lượng (quality goals không đổi)</li>
+          <li>❌ Không đổi Sprint Goal</li>
+          <li>✅ Scope <b>có thể renegotiate</b> giữa PO &amp; Developers nếu cần thiết</li>
+          <li>✅ Product Backlog vẫn được refine liên tục</li>
+        </ul>
+      </li>
+      <li>Chỉ <b>PO</b> có quyền <b>cancel Sprint</b> (khi Sprint Goal không còn ý nghĩa).</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>🧩 Scrum = Roles + Events + Artifacts + Rules</h2>
+    <ul>
+      <li><b>Rules</b> là chất kết dính, liên kết toàn bộ Roles, Events, Artifacts lại với nhau.</li>
+      <li>Scrum là <b>framework</b>, không phải methodology đầy đủ → cần thêm kỹ thuật cụ thể (XP, Kanban, v.v.) để áp dụng.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>❌ Những hiểu sai thường gặp <span style="font-size:12px;color:var(--muted);font-weight:400;">(đề thi hay gài)</span></h2>
+    <table class="trap-table">
+      <tr><th>Sai</th><th>Đúng</th></tr>
+      <tr><td>Scrum Master là quản lý của Developers</td><td>SM phục vụ team, không quản lý nhân sự</td></tr>
+      <tr><td>Sprint Review chỉ là demo</td><td>Là buổi inspect &amp; adapt, có thể làm việc trực tiếp trên sản phẩm</td></tr>
+      <tr><td>Daily Scrum là status update cho SM/PO</td><td>Là buổi Developers tự inspect &amp; re-plan</td></tr>
+      <tr><td>PO có thể đơn phương đổi Sprint Backlog</td><td>Chỉ Developers được sửa</td></tr>
+      <tr><td>DoD do tổ chức/SM quyết định hoàn toàn</td><td>DoD do Developers tạo, tổ chức chỉ set chuẩn tối thiểu nếu có</td></tr>
+      <tr><td>Sprint có thể kéo dài nếu chưa xong</td><td>Sprint có thời lượng cố định, không kéo dài</td></tr>
+      <tr><td>Một Sprint có thể có 2 Sprint Goal</td><td>Chỉ có 1 Sprint Goal duy nhất</td></tr>
+      <tr><td>Velocity là khái niệm chính thức trong Scrum Guide</td><td><b>Không có trong Scrum Guide</b> — đây là khái niệm bổ sung ngoài framework</td></tr>
+      <tr><td>"Scrum Team" gồm cả stakeholders</td><td>Stakeholders KHÔNG thuộc Scrum Team</td></tr>
+    </table>
+  </section>
+
+  <section>
+    <h2>🧠 Mẹo làm bài thi PSM I</h2>
+    <ul class="tip-list">
+      <li>Đọc kỹ chữ <span class="pill">who</span> <span class="pill">may</span> <span class="pill">must</span> <span class="pill">can</span> trong câu hỏi — Scrum Guide dùng từ rất chính xác.</li>
+      <li>Nếu thấy đáp án có "Project Manager", "Team Lead", "Status report" → khả năng cao là <b>sai</b>, vì Scrum không có các khái niệm này.</li>
+      <li>Câu hỏi dạng "Ai có quyền..." → 90% đáp án đúng là <b>1 vai trò cụ thể</b>, không phải "cả team" hoặc "tuỳ tổ chức".</li>
+      <li>Ưu tiên đáp án bám sát <b>nguyên văn Scrum Guide 2020</b>, tránh đáp án nghe "hợp lý" theo kinh nghiệm thực tế cá nhân.</li>
+      <li>Đề thi có câu hỏi multiple-answer (chọn nhiều) — đọc kỹ số lượng đáp án yêu cầu.</li>
+    </ul>
+  </section>
+
+</div>
+</body>
+</html>
