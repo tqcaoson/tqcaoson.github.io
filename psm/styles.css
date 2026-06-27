@@ -501,6 +501,15 @@ a { color: var(--scrum-green-dark); }
   border-color: var(--scrum-green);
 }
 
+#customTimeEstimate {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--scrum-green-dark);
+  background: var(--scrum-green-light);
+  padding: 6px 10px;
+  border-radius: 6px;
+}
+
 /* nav controls */
 .nav-controls {
   display: flex;

@@ -168,6 +168,61 @@ function renderHome() {
   `;
   pgrid.appendChild(randomCard);
 
+  const customTimedCard = document.createElement("div");
+  customTimedCard.className = "exam-card";
+  customTimedCard.innerHTML = `
+    <span class="tag">TÙY CHỌN · CÓ TÍNH GIỜ</span>
+    <h2>Đề tùy chỉnh theo khoảng câu</h2>
+    <div class="meta"><span>Nhập câu bắt đầu - kết thúc</span><span>Pass ≥ 85%</span></div>
+    <div style="display:flex; gap:8px; align-items:flex-end; margin-top:4px;">
+      <div style="flex:1;">
+        <label style="font-size:12.5px; color:var(--ink-soft); font-family:var(--mono); display:block; margin-bottom:4px;">Từ câu</label>
+        <input type="number" id="customStartInput" min="1" max="${totalQuestions}" value="1"
+          style="width:100%; font-family:var(--mono); font-size:15px; padding:8px 10px; border:1.5px solid var(--line); border-radius:7px; background:#fff;" />
+      </div>
+      <div style="flex:1;">
+        <label style="font-size:12.5px; color:var(--ink-soft); font-family:var(--mono); display:block; margin-bottom:4px;">Đến câu</label>
+        <input type="number" id="customEndInput" min="1" max="${totalQuestions}" value="80"
+          style="width:100%; font-family:var(--mono); font-size:15px; padding:8px 10px; border:1.5px solid var(--line); border-radius:7px; background:#fff;" />
+      </div>
+    </div>
+    <div class="progress-text" id="customTimeEstimate" style="margin-top:6px;"></div>
+    <div class="actions">
+      <button class="btn btn-primary btn-block" id="btnStartCustom">Bắt đầu</button>
+    </div>
+  `;
+  pgrid.appendChild(customTimedCard);
+
+  const customStartInput = $("#customStartInput");
+  const customEndInput = $("#customEndInput");
+  const customTimeEstimate = $("#customTimeEstimate");
+
+  function updateCustomTimeEstimate() {
+    const s = parseInt(customStartInput.value, 10);
+    const e = parseInt(customEndInput.value, 10);
+    if (isNaN(s) || isNaN(e) || e < s) {
+      customTimeEstimate.textContent = "Nhập khoảng câu hợp lệ để xem thời gian dự kiến.";
+      return;
+    }
+    const count = e - s + 1;
+    const minutes = computeTimeForQuestionCount(count);
+    customTimeEstimate.textContent = `${count} câu · thời gian: ${minutes} phút (tỉ lệ 80 câu = 60 phút)`;
+  }
+  customStartInput.addEventListener("input", updateCustomTimeEstimate);
+  customEndInput.addEventListener("input", updateCustomTimeEstimate);
+  updateCustomTimeEstimate();
+
+  $("#btnStartCustom").addEventListener("click", () => {
+    let s = parseInt(customStartInput.value, 10);
+    let e = parseInt(customEndInput.value, 10);
+    if (isNaN(s)) s = 1;
+    if (isNaN(e)) e = s;
+    s = Math.max(1, Math.min(totalQuestions, s));
+    e = Math.max(1, Math.min(totalQuestions, e));
+    if (e < s) { const tmp = s; s = e; e = tmp; }
+    startCustomRangeExam(s, e);
+  });
+
   $("#btnStartRange").addEventListener("click", () => {
     const input = $("#rangeStartInput");
     let startNum = parseInt(input.value, 10);
@@ -193,6 +248,47 @@ function onHomeClick(e) {
   } else if (action === "review-last") {
     startExam(id, false, true);
   }
+}
+
+/* ---------------- Custom timed range exam (proportional time, pass/fail 85%) ---------------- */
+
+// Ratio: 80 questions = 60 minutes => 1 question = 0.75 minutes
+const MINUTES_PER_QUESTION = 60 / 80;
+
+function computeTimeForQuestionCount(count) {
+  return Math.max(1, Math.round(count * MINUTES_PER_QUESTION));
+}
+
+function startCustomRangeExam(startNum, endNum) {
+  const all = EXAMS.allQuestions;
+  const startIdx = startNum - 1;
+  const endIdx = endNum - 1;
+  const slice = all.slice(startIdx, endIdx + 1);
+  const minutes = computeTimeForQuestionCount(slice.length);
+
+  currentExamId = "practice";
+  currentExam = {
+    id: "practice-custom",
+    title: `Đề tùy chỉnh: Câu ${startNum} - ${endNum}`,
+    durationMinutes: minutes,
+    passPercent: 85,
+    questions: JSON.parse(JSON.stringify(slice)),
+  };
+
+  runtime = {
+    answers: {},
+    current: 0,
+    secondsLeft: minutes * 60,
+    timerHandle: null,
+    paused: false,
+    submitted: false,
+    showExplain: new Set(),
+    reviewOnly: false,
+    timed: true,
+  };
+
+  renderExamRunner();
+  startTimer();
 }
 
 /* ---------------- Practice modes: range & random (untimed, score-only) ---------------- */
@@ -627,9 +723,10 @@ function renderResults(score, timeUp = false) {
   const unanswered = score.total - score.perQuestion.filter(p => p.answered).length;
   const wrong = score.total - score.correctCount - unanswered;
   const isPractice = currentExamId === "practice";
+  const hasPassFail = score.passed !== null;
 
   let heroHtml;
-  if (isPractice) {
+  if (!hasPassFail) {
     heroHtml = `
       <div class="result-hero">
         <div class="verdict" style="background:var(--paper-2); color:var(--ink-soft);">KẾT QUẢ LUYỆN TẬP</div>
