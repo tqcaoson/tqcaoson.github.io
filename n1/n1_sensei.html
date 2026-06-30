@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>N1 先生 — Bạn đồng hành luyện thi N1</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700;800&family=Noto+Sans+JP:wght@400;500;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --indigo-deep:#16263a;
+    --indigo-mid:#22405e;
+    --washi:#f1ead9;
+    --washi-soft:#e7ddc6;
+    --sumi:#262320;
+    --vermillion:#bc3b2c;
+    --gold:#b8923a;
+    --ok:#3f7a4f;
+    --r:14px;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:
+      radial-gradient(circle at 85% -10%, rgba(184,146,58,.18), transparent 45%),
+      linear-gradient(180deg,var(--indigo-deep),#0e1b29 70%);
+    color:var(--washi);
+    font-family:'Zen Kaku Gothic New','Noto Sans JP',sans-serif;
+    min-height:100vh;
+    padding:28px 16px 60px;
+  }
+  .wrap{max-width:760px;margin:0 auto;}
+  header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:18px;}
+  .brand{display:flex;align-items:center;gap:14px;}
+  .seal{
+    width:50px;height:50px;border-radius:8px;background:var(--vermillion);
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Shippori Mincho',serif;font-weight:800;font-size:22px;color:#fff2e6;
+    box-shadow:0 4px 14px rgba(188,59,44,.45);
+    transform:rotate(-3deg);
+    flex-shrink:0;
+  }
+  h1{font-family:'Shippori Mincho',serif;font-weight:800;font-size:26px;margin:0;letter-spacing:.5px;}
+  .sub{font-size:12.5px;opacity:.65;margin-top:2px;}
+  .streak{
+    text-align:right;font-family:'Shippori Mincho',serif;
+  }
+  .streak b{font-size:28px;color:#f4d98a;display:block;line-height:1;}
+  .streak span{font-size:11px;opacity:.7;}
+
+  .banner{
+    background:linear-gradient(135deg,var(--vermillion),#9a2e22);
+    border-radius:var(--r);
+    padding:14px 18px;
+    margin-bottom:16px;
+    display:none;
+    gap:12px;
+    align-items:center;
+    box-shadow:0 8px 24px rgba(188,59,44,.25);
+    animation:slidein .4s ease;
+  }
+  @keyframes slidein{from{opacity:0;transform:translateY(-8px);}to{opacity:1;transform:translateY(0);}}
+  .banner.show{display:flex;}
+  .banner .icon{font-size:22px;}
+  .banner .txt{flex:1;font-size:13.5px;line-height:1.4;}
+  .banner .txt b{display:block;font-family:'Shippori Mincho',serif;font-size:15px;margin-bottom:2px;}
+  .banner button{
+    background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.4);color:#fff;
+    border-radius:8px;padding:6px 10px;font-size:12px;cursor:pointer;
+  }
+
+  nav{display:flex;gap:6px;margin-bottom:18px;overflow-x:auto;padding-bottom:2px;}
+  nav button{
+    flex:1;min-width:max-content;
+    background:rgba(241,234,217,.06);
+    border:1px solid rgba(241,234,217,.14);
+    color:var(--washi);
+    padding:9px 14px;border-radius:999px;font-size:13px;cursor:pointer;
+    font-family:'Zen Kaku Gothic New',sans-serif;
+    transition:.15s;
+    white-space:nowrap;
+  }
+  nav button.active{background:var(--gold);border-color:var(--gold);color:#241c08;font-weight:700;}
+
+  .card{
+    background:var(--washi);
+    color:var(--sumi);
+    border-radius:18px;
+    padding:22px;
+    box-shadow:0 14px 40px rgba(0,0,0,.35);
+    position:relative;
+    overflow:hidden;
+  }
+  .card::before{
+    content:"";position:absolute;inset:0;
+    background-image:repeating-linear-gradient(0deg,transparent,transparent 23px,rgba(0,0,0,.025) 24px);
+    pointer-events:none;
+  }
+  .card h2{font-family:'Shippori Mincho',serif;font-size:19px;margin:0 0 4px;}
+  .muted{opacity:.62;font-size:12.5px;margin-bottom:16px;}
+
+  .stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:18px;}
+  .stat{
+    background:var(--washi-soft);border-radius:12px;padding:12px;text-align:center;
+  }
+  .stat b{display:block;font-family:'Shippori Mincho',serif;font-size:22px;}
+  .stat span{font-size:10.5px;opacity:.65;text-transform:uppercase;letter-spacing:.5px;}
+
+  .row-btns{display:flex;gap:10px;flex-wrap:wrap;}
+  .btn{
+    background:var(--indigo-deep);color:#f1ead9;border:none;border-radius:10px;
+    padding:11px 18px;font-size:13.5px;cursor:pointer;font-weight:500;
+    font-family:'Zen Kaku Gothic New',sans-serif;
+  }
+  .btn.gold{background:var(--gold);color:#241c08;font-weight:700;}
+  .btn.ghost{background:transparent;border:1.5px solid var(--sumi);color:var(--sumi);}
+  .btn:active{transform:scale(.97);}
+
+  .time-row{display:flex;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap;}
+  .time-row label{font-size:13px;width:90px;}
+  .time-row input[type=time]{
+    border:1.5px solid #cfc4a3;border-radius:8px;padding:6px 8px;font-size:13px;background:#fff;
+  }
+
+  /* QUIZ */
+  .qmeta{display:flex;justify-content:space-between;font-size:12px;opacity:.65;margin-bottom:8px;}
+  .qtag{display:inline-block;font-size:10.5px;background:var(--indigo-deep);color:#f1ead9;padding:3px 9px;border-radius:999px;margin-bottom:10px;}
+  .qtext{font-size:18px;line-height:1.55;margin-bottom:18px;font-weight:500;}
+  .choices{display:flex;flex-direction:column;gap:9px;margin-bottom:16px;}
+  .choice{
+    border:1.5px solid #cfc4a3;background:#fffdf7;border-radius:10px;padding:11px 14px;
+    cursor:pointer;font-size:14.5px;transition:.12s;
+  }
+  .choice:hover{border-color:var(--gold);}
+  .choice.correct{background:#e3f1e6;border-color:var(--ok);color:#225a30;font-weight:700;}
+  .choice.wrong{background:#f8e3df;border-color:var(--vermillion);color:#8a2c20;font-weight:700;}
+  .explain{
+    background:var(--washi-soft);border-left:4px solid var(--gold);padding:10px 14px;
+    border-radius:8px;font-size:13px;line-height:1.5;display:none;margin-bottom:14px;
+  }
+  .explain.show{display:block;}
+
+  /* list / vocab browse */
+  .list-item{
+    border-bottom:1px solid #ddd2b1;padding:10px 2px;display:flex;justify-content:space-between;gap:10px;align-items:flex-start;
+  }
+  .list-item .q{font-weight:600;font-size:14px;}
+  .list-item .a{font-size:12px;opacity:.7;margin-top:2px;}
+  .filterrow{display:flex;gap:8px;margin-bottom:14px;}
+  .filterrow button{
+    flex:1;border:1.5px solid var(--sumi);background:transparent;border-radius:8px;padding:7px;font-size:12.5px;cursor:pointer;
+  }
+  .filterrow button.active{background:var(--sumi);color:#f1ead9;}
+
+  .log-item{display:flex;justify-content:space-between;font-size:13px;padding:8px 0;border-bottom:1px dashed #d8cca5;}
+  .log-item span{opacity:.6;}
+
+  .qtoolbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;}
+  .btn.small{padding:6px 12px;font-size:12px;}
+  .timer-badge{
+    font-family:'Shippori Mincho',serif;font-weight:700;font-size:14px;
+    background:var(--indigo-deep);color:#f1ead9;padding:5px 12px;border-radius:999px;
+  }
+
+  .qform{background:var(--washi-soft);border-radius:12px;padding:16px;margin-bottom:16px;}
+  .qform label{display:block;font-size:11.5px;opacity:.65;margin:10px 0 4px;text-transform:uppercase;letter-spacing:.4px;}
+  .qform input[type=text], .qform textarea, .qform select{
+    width:100%;border:1.5px solid #cfc4a3;border-radius:8px;padding:8px 10px;font-size:13.5px;
+    background:#fffdf7;font-family:inherit;
+  }
+  .qform textarea{resize:vertical;min-height:44px;}
+  .qform .choice-row{display:flex;align-items:center;gap:8px;margin-top:6px;}
+  .qform .choice-row input[type=radio]{flex-shrink:0;}
+  .qform .choice-row input[type=text]{flex:1;}
+
+  .insight{
+    background:var(--washi-soft);border-left:4px solid var(--vermillion);padding:10px 14px;
+    border-radius:8px;font-size:13px;line-height:1.55;margin-bottom:10px;
+  }
+  .bar-row{display:flex;align-items:center;gap:8px;font-size:12.5px;margin-bottom:8px;}
+  .bar-row .label{width:90px;flex-shrink:0;}
+  .bar-track{flex:1;height:10px;background:#ddd2b1;border-radius:999px;overflow:hidden;}
+  .bar-fill{height:100%;background:var(--ok);}
+  .bar-row .val{width:42px;text-align:right;flex-shrink:0;font-weight:600;}
+
+  .week-block{margin-bottom:18px;border:1.5px solid #ddd2b1;border-radius:12px;overflow:hidden;}
+  .week-head{background:var(--indigo-deep);color:#f1ead9;padding:10px 14px;display:flex;justify-content:space-between;align-items:center;}
+  .week-head b{font-family:'Shippori Mincho',serif;font-size:14.5px;}
+  .week-head span{font-size:11.5px;opacity:.75;}
+  .day-row{display:flex;align-items:center;gap:10px;padding:9px 14px;border-bottom:1px solid #ece3c9;background:#fffdf7;}
+  .day-row:last-child{border-bottom:none;}
+  .day-row.done{opacity:.55;}
+  .day-row .chk{width:20px;height:20px;flex-shrink:0;cursor:pointer;}
+  .day-row .info{flex:1;}
+  .day-row .info .d{font-size:11px;opacity:.6;text-transform:uppercase;letter-spacing:.4px;}
+  .day-row .info .t{font-size:13.5px;font-weight:600;}
+  .day-row .info .target{font-size:11.5px;opacity:.65;}
+  .day-row .go{flex-shrink:0;}
+
+  footer{text-align:center;font-size:11px;opacity:.4;margin-top:24px;}
+</style>
+</head>
+<!-- Ngân hàng đề được tách riêng ra file bank.js, import bằng script tag thường (không dùng fetch
+     vì trình duyệt chặn fetch file cục bộ khi mở qua file://). bank.js phải nằm cùng thư mục với file này. -->
+<script src="bank.js"></script>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="brand">
+      <div class="seal">N1</div>
+      <div>
+        <h1>N1 先生</h1>
+        <div class="sub">Bạn đồng hành ôn thi JLPT N1 — thích nghi theo điểm yếu, tự quản lý đề</div>
+      </div>
+    </div>
+    <div class="streak">
+      <b id="streakNum">0</b>
+      <span>ngày liên tiếp</span>
+    </div>
+  </header>
+
+  <div class="banner" id="banner">
+    <div class="icon">🔔</div>
+    <div class="txt"><b id="bannerTitle">Đến giờ học rồi!</b><span id="bannerSub"></span></div>
+    <button onclick="dismissBanner()">Đã hiểu</button>
+  </div>
+
+  <nav>
+    <button class="active" data-tab="dash">Tổng quan</button>
+    <button data-tab="roadmap">Lộ trình 4 tuần</button>
+    <button data-tab="quiz">Luyện đề</button>
+    <button data-tab="weak">Điểm yếu</button>
+    <button data-tab="analysis">Phân tích</button>
+    <button data-tab="bank">Ngân hàng đề</button>
+    <button data-tab="settings">Nhắc nhở</button>
+  </nav>
+
+  <div class="card" id="panel"></div>
+
+  <footer>記憶は一日にしてならず — Kiến thức không thể tích lũy trong một ngày.</footer>
+</div>
+
+<script>
+/* ---------------- DATA ---------------- */
+// BANK đã được nạp sẵn từ bank.js (script tag ở <head>) — biến BANK đã tồn tại global ở đây.
+const bankLoadError = (typeof BANK === "undefined" || !Array.isArray(BANK) || BANK.length === 0);
+
+/* ---------------- STORAGE HELPERS ---------------- */
+const SK = "n1sensei:state";
+let state = {
+  streak:0, lastStudyDate:null, totalAnswered:0, totalCorrect:0,
+  log:[], reminderMorning:"07:00", reminderEvening:"21:00",
+  dismissedToday:{},
+  qbank:null, /* mảng câu hỏi do người dùng có thể sửa/thêm/xóa, khởi tạo từ BANK lần đầu */
+  roadmapProgress:{}, /* { "w1d1": true, ... } theo dõi tick hoàn thành lộ trình 4 tuần */
+  pointStats:{} /* { [questionId]: {attempts, wrong, lastSeen(ms), lastWrong:bool, totalTimeMs} } */
+};
+
+function ensureQbank(){
+  const needsResync = !state.qbank || state.bankVersion !== BANK.length;
+  if(needsResync){
+    const customQs = (state.qbank || []).filter(q => q.id && q.id.startsWith("c"));
+    const builtin = BANK.map((b,i)=>({...b, id:"b"+i}));
+    state.qbank = builtin.concat(customQs);
+    state.bankVersion = BANK.length;
+    // dọn pointStats của những câu builtin không còn tồn tại trong bank.js mới
+    const validIds = new Set(state.qbank.map(q=>q.id));
+    Object.keys(state.pointStats).forEach(id=>{ if(!validIds.has(id)) delete state.pointStats[id]; });
+  }
+}
+
+function resyncBank(){
+  if(!confirm("Đồng bộ lại ngân hàng đề từ bank.js? Các câu bạn tự thêm (id bắt đầu bằng \"c\") vẫn được giữ nguyên, các chỉnh sửa trực tiếp lên câu gốc sẽ được nạp lại theo bank.js mới nhất.")) return;
+  state.bankVersion = -1; // ép buộc resync ở lượt ensureQbank tiếp theo
+  ensureQbank();
+  saveState();
+  render();
+  alert(`Đã đồng bộ xong. Ngân hàng hiện có ${state.qbank.length} câu.`);
+}
+
+/* ---------------- ADAPTIVE ENGINE (no external AI, pure local logic) ----------------
+   Mỗi câu hỏi có 1 id cố định. Thuật toán ưu tiên kiểu spaced-repetition, chạy hoàn toàn local:
+   - Câu chưa từng làm        -> ưu tiên trung bình để phủ hết ngân hàng câu hỏi
+   - Câu hay sai               -> trọng số tăng mạnh theo tỉ lệ sai
+   - Câu lâu chưa ôn lại       -> trọng số tăng dần theo số ngày trôi qua
+   - Câu vừa làm đúng gần đây  -> trọng số giảm, ít xuất hiện lại ngay
+   - Câu thường mất nhiều thời gian hơn mức trung bình -> được coi là điểm yếu, tăng nhẹ trọng số
+-------------------------------------------------------------------------------------- */
+function getGlobalAvgTimeMs(){
+  let total=0, count=0;
+  Object.values(state.pointStats).forEach(s=>{ if(s.attempts>0 && s.totalTimeMs){ total+=s.totalTimeMs; count+=s.attempts; } });
+  return count ? total/count : 0;
+}
+
+function getWeight(id){
+  const s = state.pointStats[id];
+  const now = Date.now();
+  if(!s || s.attempts === 0) return 3.0;
+  const wrongRate = s.wrong / s.attempts;
+  const daysSince = Math.min((now - s.lastSeen) / 86400000, 21);
+  let w = 0.6 + wrongRate * 6 + daysSince * 0.35;
+  if(s.lastWrong) w += 2;
+  const globalAvg = getGlobalAvgTimeMs();
+  const myAvg = s.totalTimeMs ? s.totalTimeMs / s.attempts : 0;
+  if(globalAvg > 0 && myAvg > globalAvg * 1.3) w += 1.3; // câu làm chậm hơn 30% mức trung bình -> coi là điểm yếu
+  return Math.max(w, 0.3);
+}
+
+function weightedSample(poolIds, n){
+  const pool = poolIds.slice();
+  const picked = [];
+  n = Math.min(n, pool.length);
+  for(let k=0; k<n; k++){
+    const weights = pool.map(id => getWeight(id));
+    const total = weights.reduce((a,b)=>a+b, 0);
+    let r = Math.random() * total;
+    let chosenIdx = 0;
+    for(let j=0; j<weights.length; j++){
+      r -= weights[j];
+      if(r <= 0){ chosenIdx = j; break; }
+    }
+    picked.push(pool[chosenIdx]);
+    pool.splice(chosenIdx, 1);
+  }
+  return picked;
+}
+
+function recordAnswer(id, isCorrect, elapsedMs){
+  const s = state.pointStats[id] || {attempts:0, wrong:0, lastSeen:0, lastWrong:false, totalTimeMs:0};
+  s.attempts++;
+  if(!isCorrect) s.wrong++;
+  s.lastSeen = Date.now();
+  s.lastWrong = !isCorrect;
+  s.totalTimeMs = (s.totalTimeMs||0) + (elapsedMs||0);
+  state.pointStats[id] = s;
+}
+
+function getQById(id){ return state.qbank.find(q=>q.id===id); }
+
+async function loadState(){
+  try{
+    const r = await window.storage.get(SK);
+    if(r && r.value) state = Object.assign(state, JSON.parse(r.value));
+  }catch(e){ /* first run, no data yet */ }
+  ensureQbank();
+}
+async function saveState(){
+  try{ await window.storage.set(SK, JSON.stringify(state)); }catch(e){console.error(e);}
+}
+
+function todayStr(){ return new Date().toISOString().slice(0,10); }
+
+function markStudiedToday(){
+  const t = todayStr();
+  if(state.lastStudyDate === t) return;
+  const y = new Date(Date.now()-86400000).toISOString().slice(0,10);
+  state.streak = (state.lastStudyDate === y) ? state.streak+1 : 1;
+  state.lastStudyDate = t;
+  saveState();
+}
+
+/* ---------------- REMINDER BANNER ---------------- */
+function checkReminder(){
+  const now = new Date();
+  const hm = now.toTimeString().slice(0,5);
+  const t = todayStr();
+  const studiedToday = state.lastStudyDate === t;
+  if(studiedToday){ document.getElementById("banner").classList.remove("show"); return; }
+  const slots = [["morning", state.reminderMorning, "Buổi sáng tỉnh táo, làm vài câu ngữ pháp trước khi ra khỏi nhà nhé."],
+                 ["evening", state.reminderEvening, "Một ngày sắp kết thúc — dành 10 phút ôn lại trước khi ngủ."]];
+  for(const [key, time, msg] of slots){
+    if(!time) continue;
+    const dismissKey = key+"_"+t;
+    if(state.dismissedToday[dismissKey]) continue;
+    if(hm >= time){
+      document.getElementById("bannerTitle").textContent = key==="morning" ? "🌅 Giờ học buổi sáng đã đến!" : "🌙 Giờ học buổi tối đã đến!";
+      document.getElementById("bannerSub").textContent = msg;
+      document.getElementById("banner").classList.add("show");
+      window._activeBannerKey = dismissKey;
+      return;
+    }
+  }
+  document.getElementById("banner").classList.remove("show");
+}
+function dismissBanner(){
+  if(window._activeBannerKey){ state.dismissedToday[window._activeBannerKey]=true; saveState(); }
+  document.getElementById("banner").classList.remove("show");
+}
+
+/* ---------------- TABS ---------------- */
+let currentTab = "dash";
+let quizState = null; // {order:[ids], idx, correct, answeredThis, qStartTime}
+
+document.querySelectorAll("nav button").forEach(b=>{
+  b.onclick = ()=>{
+    document.querySelectorAll("nav button").forEach(x=>x.classList.remove("active"));
+    b.classList.add("active");
+    currentTab = b.dataset.tab;
+    render();
+  };
+});
+
+function render(){
+  document.getElementById("streakNum").textContent = state.streak;
+  const p = document.getElementById("panel");
+  if(currentTab === "dash") p.innerHTML = renderDash();
+  if(currentTab === "roadmap") renderRoadmapTab(p);
+  if(currentTab === "quiz") renderQuizTab(p);
+  if(currentTab === "weak") renderWeakTab(p);
+  if(currentTab === "analysis") renderAnalysisTab(p);
+  if(currentTab === "bank") renderBankTab(p);
+  if(currentTab === "settings") renderSettingsTab(p);
+}
+
+function goTab(tab){
+  currentTab = tab;
+  document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('active', b.dataset.tab===tab));
+  render();
+}
+
+/* ---------------- LỘ TRÌNH 4 TUẦN (tính năng tương tác trong app, không phải file ngoài) ---------------- */
+const ROADMAP = [
+  { w:1, title:"Phủ hết lượt đầu — nửa đầu ngân hàng", note:"Làm quen toàn bộ điểm ngữ pháp/từ vựng, chưa cần nhớ hết.",
+    days:[
+      {d:"Thứ 2", t:"Luyện đề mới", target:"35-40 câu", action:{type:"quiz", filter:"all", n:38}},
+      {d:"Thứ 3", t:"Luyện đề mới", target:"35-40 câu", action:{type:"quiz", filter:"grammar", n:18}},
+      {d:"Thứ 4", t:"Luyện đề mới", target:"35-40 câu", action:{type:"quiz", filter:"vocab", n:20}},
+      {d:"Thứ 5", t:"Luyện đề mới", target:"35-40 câu", action:{type:"quiz", filter:"all", n:38}},
+      {d:"Thứ 6", t:"Luyện đề mới", target:"35-40 câu", action:{type:"quiz", filter:"grammar", n:18}},
+      {d:"Thứ 7", t:"Luyện đề mới", target:"35-40 câu", action:{type:"quiz", filter:"vocab", n:20}},
+      {d:"Chủ nhật", t:"Ôn lại toàn bộ câu sai trong tuần", target:"hết danh sách điểm yếu", action:{type:"weak"}},
+    ]},
+  { w:2, title:"Phủ hết lượt đầu — nửa sau ngân hàng", note:"Engine tự ưu tiên câu chưa từng làm, cứ tiếp tục luyện đề mới như tuần 1.",
+    days:[
+      {d:"Thứ 2", t:"Luyện đề mới", target:"35-40 câu", action:{type:"quiz", filter:"all", n:38}},
+      {d:"Thứ 3", t:"Luyện đề mới", target:"35-40 câu", action:{type:"quiz", filter:"grammar", n:18}},
+      {d:"Thứ 4", t:"Luyện đề mới", target:"35-40 câu", action:{type:"quiz", filter:"vocab", n:20}},
+      {d:"Thứ 5", t:"Luyện đề mới", target:"35-40 câu", action:{type:"quiz", filter:"all", n:38}},
+      {d:"Thứ 6", t:"Luyện đề mới", target:"35-40 câu", action:{type:"quiz", filter:"grammar", n:18}},
+      {d:"Thứ 7", t:"Luyện đề mới", target:"35-40 câu", action:{type:"quiz", filter:"vocab", n:20}},
+      {d:"Chủ nhật", t:"Ôn câu sai trong tuần + xem tab Phân tích", target:"hết danh sách điểm yếu", action:{type:"weak"}},
+    ]},
+  { w:3, title:"Vòng 2 — dồn lực vào điểm yếu", note:"Không random nữa, chỉ dùng đề sinh theo phân tích và ôn điểm yếu.",
+    days:[
+      {d:"Thứ 2", t:"Tạo đề theo phân tích điểm yếu", target:"~12 câu", action:{type:"analysis"}},
+      {d:"Thứ 3", t:"Làm hết danh sách câu đang sai cao nhất", target:"hết tab Điểm yếu", action:{type:"weak"}},
+      {d:"Thứ 4", t:"Tạo đề theo phân tích điểm yếu", target:"~12 câu", action:{type:"analysis"}},
+      {d:"Thứ 5", t:"Làm hết danh sách câu đang sai cao nhất", target:"hết tab Điểm yếu", action:{type:"weak"}},
+      {d:"Thứ 6", t:"Tạo đề theo phân tích điểm yếu", target:"~12 câu", action:{type:"analysis"}},
+      {d:"Thứ 7", t:"Làm hết danh sách câu đang sai cao nhất", target:"hết tab Điểm yếu", action:{type:"weak"}},
+      {d:"Chủ nhật", t:"Làm lại toàn bộ ngân hàng 1 lượt nhanh (đo phản xạ)", target:"504 câu", action:{type:"quiz", filter:"all", n:9999}},
+    ]},
+  { w:4, title:"Tổng ôn + mô phỏng thi thật", note:"Mục tiêu: tốc độ ổn định, tab Phân tích không còn điểm yếu rõ rệt.",
+    days:[
+      {d:"Thứ 2", t:"2 lượt thích nghi, canh dưới 25-30s/câu", target:"~20 câu", action:{type:"quiz", filter:"all", n:20}},
+      {d:"Thứ 3", t:"2 lượt thích nghi, canh dưới 25-30s/câu", target:"~20 câu", action:{type:"quiz", filter:"all", n:20}},
+      {d:"Thứ 4", t:"2 lượt thích nghi, canh dưới 25-30s/câu", target:"~20 câu", action:{type:"quiz", filter:"all", n:20}},
+      {d:"Thứ 5", t:"Làm lại toàn bộ câu từng nằm trong Điểm yếu", target:"hết danh sách", action:{type:"weak"}},
+      {d:"Thứ 6", t:"Làm lại toàn bộ câu từng nằm trong Điểm yếu", target:"hết danh sách", action:{type:"weak"}},
+      {d:"Thứ 7", t:"Ôn nhẹ giữ phản xạ", target:"15-20 câu", action:{type:"quiz", filter:"all", n:18}},
+      {d:"Chủ nhật", t:"Test tổng kết — làm trọn 504 câu một lượt cuối", target:"504 câu", action:{type:"quiz", filter:"all", n:9999}},
+    ]},
+];
+
+function roadmapKey(w,di){ return `w${w}d${di}`; }
+
+function toggleRoadmapDay(key){
+  state.roadmapProgress[key] = !state.roadmapProgress[key];
+  saveState();
+  render();
+}
+
+function startRoadmapAction(action){
+  if(action.type === "quiz") startQuiz(action.filter, action.n);
+  else if(action.type === "weak") startWeakReview();
+  else if(action.type === "analysis") startAnalysisQuiz();
+}
+
+function renderRoadmapTab(p){
+  const totalDays = ROADMAP.reduce((s,w)=>s+w.days.length,0);
+  const doneDays = Object.values(state.roadmapProgress).filter(Boolean).length;
+  const pct = totalDays ? Math.round(100*doneDays/totalDays) : 0;
+  p.innerHTML = `
+    <h2>計画 — Lộ trình 4 tuần cày ${state.qbank.length} câu</h2>
+    <div class="muted">Chia nhỏ theo từng ngày như cách luyện sách 500問. Tick xong ngày nào, bấm "Bắt đầu" để app tự mở đúng chế độ luyện phù hợp.</div>
+    ${bar("Tiến độ lộ trình", pct, `${doneDays}/${totalDays} buổi đã hoàn thành`)}
+    ${ROADMAP.map(w=>`
+      <div class="week-block">
+        <div class="week-head"><b>Tuần ${w.w} — ${w.title}</b><span>${w.note}</span></div>
+        ${w.days.map((day, di)=>{
+          const key = roadmapKey(w.w, di);
+          const done = !!state.roadmapProgress[key];
+          return `<div class="day-row ${done?'done':''}">
+            <input type="checkbox" class="chk" ${done?"checked":""} onchange="toggleRoadmapDay('${key}')">
+            <div class="info">
+              <div class="d">${day.d}</div>
+              <div class="t">${day.t}</div>
+              <div class="target">Mục tiêu: ${day.target}</div>
+            </div>
+            <button class="btn gold small go" onclick='startRoadmapAction(${JSON.stringify(day.action)})'>Bắt đầu</button>
+          </div>`;
+        }).join("")}
+      </div>
+    `).join("")}
+  `;
+}
+
+function renderDash(){
+  const acc = state.totalAnswered ? Math.round(100*state.totalCorrect/state.totalAnswered) : 0;
+  const recentLog = state.log.slice(-6).reverse();
+  return `
+    <h2>記録 — Tổng quan tiến độ</h2>
+    <div class="muted">Theo dõi chuỗi ngày học và độ chính xác của bạn.</div>
+    <div class="stat-grid">
+      <div class="stat"><b>${state.streak}</b><span>ngày liên tiếp</span></div>
+      <div class="stat"><b>${state.totalAnswered}</b><span>câu đã làm</span></div>
+      <div class="stat"><b>${acc}%</b><span>độ chính xác</span></div>
+    </div>
+    <div class="row-btns" style="margin-bottom:18px;">
+      <button class="btn gold" onclick="goTab('quiz')">Bắt đầu luyện đề</button>
+      <button class="btn" onclick="goTab('roadmap')">Lộ trình 4 tuần</button>
+      <button class="btn ghost" onclick="goTab('analysis')">Xem phân tích</button>
+    </div>
+    <h2 style="font-size:15px;">Nhật ký gần đây</h2>
+    ${recentLog.length? recentLog.map(l=>`<div class="log-item"><span>${l.date}</span><span>${l.type==="quiz"?`Luyện đề: ${l.correct}/${l.total} đúng${l.partial?" (thoát giữa chừng)":""}`:"Đã học"}</span></div>`).join(""):"<div class='muted'>Chưa có nhật ký. Hãy bắt đầu buổi học đầu tiên!</div>"}
+  `;
+}
+
+function renderQuizTab(p){
+  if(!quizState){
+    p.innerHTML = `
+      <h2>練習問題 — Luyện đề N1</h2>
+      <div class="muted">${state.qbank.length} câu hỏi Từ vựng &amp; Ngữ pháp N1. Hệ thống tự ưu tiên câu bạn hay sai / lâu chưa ôn / làm chậm (xử lý hoàn toàn cục bộ, không gọi AI ngoài). Chọn chế độ:</div>
+      <div class="row-btns">
+        <button class="btn gold" onclick="startQuiz('all',10)">10 câu thích nghi (ưu tiên điểm yếu)</button>
+        <button class="btn" onclick="startQuiz('grammar',10)">10 câu Ngữ pháp</button>
+        <button class="btn" onclick="startQuiz('vocab',10)">10 câu Từ vựng</button>
+        <button class="btn ghost" onclick="startQuiz('all',${state.qbank.length})">Làm toàn bộ ${state.qbank.length} câu</button>
+      </div>
+    `;
+    return;
+  }
+  const {order, idx, correct} = quizState;
+  if(idx >= order.length){
+    const total = order.length;
+    p.innerHTML = `
+      <h2>結果 — Kết quả</h2>
+      <div class="stat-grid">
+        <div class="stat"><b>${correct}</b><span>câu đúng</span></div>
+        <div class="stat"><b>${total-correct}</b><span>câu sai</span></div>
+        <div class="stat"><b>${Math.round(100*correct/total)}%</b><span>chính xác</span></div>
+      </div>
+      <div class="row-btns">
+        <button class="btn gold" onclick="quizState=null;render()">Quay lại</button>
+        <button class="btn" onclick="startQuiz('all',10)">Làm tiếp 10 câu khác</button>
+      </div>
+    `;
+    return;
+  }
+  const item = getQById(order[idx]);
+  p.innerHTML = `
+    <div class="qtoolbar">
+      <button class="btn ghost small" onclick="exitQuiz()">← Thoát</button>
+      <span class="timer-badge" id="liveTimer">00:00</span>
+    </div>
+    <div class="qmeta"><span>Câu ${idx+1} / ${order.length}</span><span>${item.t==="grammar"?"文法 Ngữ pháp":"語彙 Từ vựng"}</span></div>
+    <span class="qtag">${item.t==="grammar"?"文法":"語彙"}</span>
+    <div class="qtext">${item.q}</div>
+    <div class="choices" id="choicesWrap">
+      ${item.c.map((c,i)=>`<div class="choice" data-i="${i}" onclick="answerQuiz(${i})">${c}</div>`).join("")}
+    </div>
+    <div class="explain" id="explainBox">${item.e}</div>
+    <div class="row-btns">
+      <button class="btn gold" id="nextBtn" style="display:none" onclick="nextQuiz()">Câu tiếp theo →</button>
+    </div>
+  `;
+  tickTimer();
+}
+
+function startQuiz(filter, n){
+  let pool = state.qbank.map(q=>q.id);
+  if(filter !== "all") pool = state.qbank.filter(q=>q.t===filter).map(q=>q.id);
+  let order;
+  if(n >= pool.length){
+    order = pool.slice().sort(()=>Math.random()-0.5);
+  }else{
+    order = weightedSample(pool, n);
+  }
+  quizState = {order, idx:0, correct:0, answeredThis:null, qStartTime:Date.now()};
+  goTab('quiz');
+}
+
+function startWeakReview(){
+  const weak = Object.keys(state.pointStats)
+    .map(k=>({i:k, ...state.pointStats[k]}))
+    .filter(s=>s.wrong>0 && getQById(s.i))
+    .sort((a,b)=> (b.wrong/b.attempts) - (a.wrong/a.attempts));
+  if(weak.length === 0){ alert("Chưa có câu nào bị sai để ôn lại — hãy luyện đề trước nhé!"); return; }
+  const order = weak.slice(0, 15).map(s=>s.i);
+  quizState = {order, idx:0, correct:0, answeredThis:null, qStartTime:Date.now()};
+  goTab('quiz');
+}
+
+/* Sinh đề dựa trên kết quả phân tích điểm mạnh/yếu + tốc độ làm bài, vẫn xử lý hoàn toàn local */
+function startAnalysisQuiz(){
+  const pool = state.qbank.map(q=>q.id);
+  const order = weightedSample(pool, Math.min(12, pool.length));
+  quizState = {order, idx:0, correct:0, answeredThis:null, qStartTime:Date.now()};
+  goTab('quiz');
+}
+
+function exitQuiz(){
+  if(!quizState) return;
+  if(quizState.idx < quizState.order.length){
+    if(!confirm("Thoát giữa chừng? Các câu đã trả lời vẫn được lưu, nhưng phiên này sẽ kết thúc tại đây.")) return;
+    if(quizState.idx > 0){
+      state.log.push({date:todayStr(), type:"quiz", correct:quizState.correct, total:quizState.idx, partial:true});
+      saveState();
+    }
+  }
+  quizState = null;
+  goTab('quiz');
+}
+
+function answerQuiz(i){
+  if(quizState.answeredThis !== null && quizState.answeredThis !== undefined) return;
+  const item = getQById(quizState.order[quizState.idx]);
+  quizState.answeredThis = i;
+  const wrap = document.getElementById("choicesWrap");
+  [...wrap.children].forEach((el,ci)=>{
+    if(ci === item.a) el.classList.add("correct");
+    else if(ci === i) el.classList.add("wrong");
+  });
+  document.getElementById("explainBox").classList.add("show");
+  document.getElementById("nextBtn").style.display = "inline-block";
+  const isCorrect = i === item.a;
+  if(isCorrect) quizState.correct++;
+  state.totalAnswered++;
+  if(isCorrect) state.totalCorrect++;
+  const elapsed = Date.now() - quizState.qStartTime;
+  recordAnswer(item.id, isCorrect, elapsed);
+  markStudiedToday();
+  saveState();
+}
+
+function nextQuiz(){
+  quizState.idx++;
+  quizState.answeredThis = null;
+  quizState.qStartTime = Date.now();
+  if(quizState.idx >= quizState.order.length){
+    state.log.push({date:todayStr(), type:"quiz", correct:quizState.correct, total:quizState.order.length});
+    saveState();
+  }
+  render();
+}
+
+function tickTimer(){
+  const el = document.getElementById("liveTimer");
+  if(!el || !quizState || quizState.idx >= quizState.order.length) return;
+  const sec = Math.floor((Date.now() - quizState.qStartTime)/1000);
+  const mm = String(Math.floor(sec/60)).padStart(2,"0");
+  const ss = String(sec%60).padStart(2,"0");
+  el.textContent = `${mm}:${ss}`;
+}
+
+function renderWeakTab(p){
+  const entries = Object.keys(state.pointStats).map(k=>({i:k, ...state.pointStats[k]})).filter(e=>getQById(e.i));
+  const weak = entries.filter(e=>e.wrong>0).sort((a,b)=>(b.wrong/b.attempts)-(a.wrong/a.attempts));
+  if(weak.length === 0){
+    p.innerHTML = `
+      <h2>弱点 — Điểm yếu của bạn</h2>
+      <div class="muted">Hệ thống sẽ tự nhận diện câu bạn hay sai sau khi bạn luyện đề. Hiện chưa có dữ liệu.</div>
+      <button class="btn gold" onclick="goTab('quiz')">Bắt đầu luyện đề</button>
+    `;
+    return;
+  }
+  p.innerHTML = `
+    <h2>弱点 — Điểm yếu của bạn</h2>
+    <div class="muted">${weak.length} câu bạn từng làm sai, xếp theo tỉ lệ sai cao nhất. Hệ thống ưu tiên đưa các câu này trở lại khi bạn chọn "10 câu thích nghi".</div>
+    <div class="row-btns" style="margin-bottom:16px;"><button class="btn gold" onclick="startWeakReview()">Ôn ngay các câu hay sai</button></div>
+    <div style="max-height:420px;overflow:auto;">
+      ${weak.map(e=>{
+        const item = getQById(e.i);
+        const rate = Math.round(100*e.wrong/e.attempts);
+        const avgSec = e.totalTimeMs ? Math.round(e.totalTimeMs/e.attempts/1000) : null;
+        return `<div class="list-item"><div><div class="q">${item.q}</div><div class="a">Sai ${e.wrong}/${e.attempts} lần (${rate}%)${avgSec!==null?` · TB ${avgSec}s/câu`:""} — Đáp án đúng: ${item.c[item.a]}</div></div></div>`;
+      }).join("")}
+    </div>
+  `;
+}
+
+/* ---------------- PHÂN TÍCH ĐIỂM MẠNH / YẾU + THỜI GIAN ---------------- */
+function bar(label, pct, extra){
+  return `<div class="bar-row"><span class="label">${label}</span><div class="bar-track"><div class="bar-fill" style="width:${Math.max(0,Math.min(100,pct))}%"></div></div><span class="val">${pct}%</span></div>${extra?`<div class="muted" style="margin:-4px 0 8px;">${extra}</div>`:""}`;
+}
+
+function renderAnalysisTab(p){
+  const entries = Object.keys(state.pointStats).map(k=>({i:k, ...state.pointStats[k]})).filter(e=>getQById(e.i));
+  if(entries.length === 0){
+    p.innerHTML = `
+      <h2>分析 — Phân tích điểm mạnh / yếu</h2>
+      <div class="muted">Hãy luyện ít nhất một bài để hệ thống có dữ liệu phân tích.</div>
+      <button class="btn gold" onclick="goTab('quiz')">Bắt đầu luyện đề</button>
+    `;
+    return;
+  }
+  // theo loại
+  function statsFor(type){
+    const list = entries.filter(e=>getQById(e.i).t===type);
+    const attempts = list.reduce((s,e)=>s+e.attempts,0);
+    const wrong = list.reduce((s,e)=>s+e.wrong,0);
+    const timeMs = list.reduce((s,e)=>s+(e.totalTimeMs||0),0);
+    return {attempts, wrong, acc: attempts? Math.round(100*(attempts-wrong)/attempts):0, avgSec: attempts? Math.round(timeMs/attempts/1000):0};
+  }
+  const g = statsFor("grammar"), v = statsFor("vocab");
+
+  // điểm yếu / mạnh nhất
+  const sortedByWrongRate = entries.slice().sort((a,b)=>(b.wrong/b.attempts)-(a.wrong/a.attempts));
+  const weakest = sortedByWrongRate.filter(e=>e.wrong>0).slice(0,5);
+  const strongest = entries.filter(e=>e.attempts>=2 && e.wrong===0).sort((a,b)=>b.attempts-a.attempts).slice(0,5);
+
+  // thời gian
+  const globalAvgSec = Math.round(getGlobalAvgTimeMs()/1000) || 0;
+  const correctTimes = []; const wrongTimes = [];
+  // ước tính trung bình thời gian của câu đúng/sai dựa trên tỉ lệ lastWrong (giấu, chỉ dùng tổng thể đơn giản)
+  const slowItems = entries.filter(e=>e.totalTimeMs && e.attempts && (e.totalTimeMs/e.attempts) > getGlobalAvgTimeMs()*1.3)
+    .sort((a,b)=>(b.totalTimeMs/b.attempts)-(a.totalTimeMs/a.attempts)).slice(0,5);
+
+  // xu hướng theo ngày (từ log)
+  const byDate = {};
+  state.log.forEach(l=>{ if(l.type==="quiz"){ byDate[l.date] = byDate[l.date]||{c:0,t:0}; byDate[l.date].c+=l.correct; byDate[l.date].t+=l.total; } });
+  const dateKeys = Object.keys(byDate).sort().slice(-7);
+
+  let insight = "";
+  if(g.attempts>=3 && v.attempts>=3){
+    if(g.acc < v.acc - 10) insight = `Bạn đang yếu <b>Ngữ pháp</b> (${g.acc}%) hơn rõ rệt so với <b>Từ vựng</b> (${v.acc}%) — nên dành thêm thời gian luyện ngữ pháp.`;
+    else if(v.acc < g.acc - 10) insight = `Bạn đang yếu <b>Từ vựng</b> (${v.acc}%) hơn rõ rệt so với <b>Ngữ pháp</b> (${g.acc}%) — nên dành thêm thời gian luyện từ vựng.`;
+    else insight = `Ngữ pháp (${g.acc}%) và Từ vựng (${v.acc}%) đang khá cân bằng.`;
+  }
+  if(slowItems.length>0){
+    insight += `${insight?"<br>":""}Có ${slowItems.length} câu bạn mất thời gian suy nghĩ lâu hơn mức trung bình (${globalAvgSec}s/câu) — đây thường là dấu hiệu chưa nắm chắc dù đôi khi vẫn trả lời đúng.`;
+  }
+
+  p.innerHTML = `
+    <h2>分析 — Phân tích điểm mạnh / yếu</h2>
+    <div class="muted">Dựa trên ${state.totalAnswered} câu bạn đã làm, xử lý hoàn toàn cục bộ trên trình duyệt.</div>
+
+    <h2 style="font-size:14.5px;margin-top:14px;">Độ chính xác theo chuyên đề</h2>
+    ${bar("文法 Ngữ pháp", g.acc, `${g.attempts} lượt làm, TB ${g.avgSec}s/câu`)}
+    ${bar("語彙 Từ vựng", v.acc, `${v.attempts} lượt làm, TB ${v.avgSec}s/câu`)}
+
+    ${insight?`<div class="insight">${insight}</div>`:""}
+
+    <div class="row-btns" style="margin:6px 0 18px;">
+      <button class="btn gold" onclick="startAnalysisQuiz()">Tạo đề theo phân tích điểm yếu</button>
+    </div>
+
+    <h2 style="font-size:14.5px;">5 điểm yếu nhất</h2>
+    ${weakest.length? weakest.map(e=>{const it=getQById(e.i); return `<div class="list-item"><div><div class="q">${it.q}</div><div class="a">Sai ${e.wrong}/${e.attempts} lần</div></div></div>`}).join(""):"<div class='muted'>Chưa có câu nào bị sai.</div>"}
+
+    <h2 style="font-size:14.5px;margin-top:14px;">5 điểm mạnh nhất (đã thành thạo)</h2>
+    ${strongest.length? strongest.map(e=>{const it=getQById(e.i); return `<div class="list-item"><div><div class="q">${it.q}</div><div class="a">Đúng ${e.attempts}/${e.attempts} lần</div></div></div>`}).join(""):"<div class='muted'>Chưa có câu nào được làm đúng nhiều lần liên tiếp.</div>"}
+
+    <h2 style="font-size:14.5px;margin-top:14px;">Câu mất nhiều thời gian nhất</h2>
+    ${slowItems.length? slowItems.map(e=>{const it=getQById(e.i); const sec=Math.round(e.totalTimeMs/e.attempts/1000); return `<div class="list-item"><div><div class="q">${it.q}</div><div class="a">TB ${sec}s/câu (mức chung ${globalAvgSec}s)</div></div></div>`}).join(""):"<div class='muted'>Chưa phát hiện câu nào mất thời gian bất thường.</div>"}
+
+    ${dateKeys.length? `<h2 style="font-size:14.5px;margin-top:14px;">Xu hướng độ chính xác theo ngày</h2>
+    ${dateKeys.map(d=>{const s=byDate[d]; const pct=Math.round(100*s.c/s.t); return bar(d, pct);}).join("")}` : ""}
+  `;
+}
+
+/* ---------------- NGÂN HÀNG ĐỀ: THÊM / SỬA / XÓA ---------------- */
+function renderBankTab(p){
+  window._bankFilter = window._bankFilter || "all";
+  const f = window._bankFilter;
+  const items = state.qbank.filter(b=> f==="all" || b.t===f);
+  const formOpen = window._qformOpen;
+  p.innerHTML = `
+    <h2>編集 — Ngân hàng đề (${state.qbank.length} câu)</h2>
+    <div class="muted">Bạn có thể thêm, sửa hoặc xóa trực tiếp câu hỏi. Dữ liệu lưu cục bộ trên trình duyệt của bạn.</div>
+    <div class="row-btns" style="margin-bottom:14px;">
+      <button class="btn gold" onclick="openQuestionForm(null)">+ Thêm câu hỏi mới</button>
+    </div>
+    <div id="formZone"></div>
+    <div class="filterrow">
+      <button class="${f==='all'?'active':''}" onclick="window._bankFilter='all';render()">Tất cả</button>
+      <button class="${f==='grammar'?'active':''}" onclick="window._bankFilter='grammar';render()">Ngữ pháp</button>
+      <button class="${f==='vocab'?'active':''}" onclick="window._bankFilter='vocab';render()">Từ vựng</button>
+    </div>
+    <div style="max-height:380px;overflow:auto;">
+      ${items.map(b=>`<div class="list-item">
+        <div><div class="q">${b.q}</div><div class="a">Đáp án: ${b.c[b.a]} — ${b.e}</div></div>
+        <div class="row-btns" style="flex-wrap:nowrap;">
+          <button class="btn ghost small" onclick="openQuestionForm('${b.id}')">Sửa</button>
+          <button class="btn small" style="background:var(--vermillion);color:#fff" onclick="deleteQuestionConfirm('${b.id}')">Xóa</button>
+        </div>
+      </div>`).join("")}
+    </div>
+  `;
+  if(formOpen) renderQuestionForm();
+}
+
+function openQuestionForm(id){
+  window._qformOpen = true;
+  window._qformId = id;
+  render();
+}
+function closeQuestionForm(){
+  window._qformOpen = false;
+  window._qformId = null;
+  render();
+}
+
+function renderQuestionForm(){
+  const id = window._qformId;
+  const editing = id ? getQById(id) : null;
+  const q = editing ? editing.q : "";
+  const t = editing ? editing.t : "grammar";
+  const c = editing ? editing.c : ["","","",""];
+  const a = editing ? editing.a : 0;
+  const e = editing ? editing.e : "";
+  const zone = document.getElementById("formZone");
+  if(!zone) return;
+  zone.innerHTML = `
+    <div class="qform">
+      <h2 style="font-size:15px;">${editing? "Sửa câu hỏi" : "Thêm câu hỏi mới"}</h2>
+      <label>Loại</label>
+      <select id="f_t">
+        <option value="grammar" ${t==="grammar"?"selected":""}>文法 Ngữ pháp</option>
+        <option value="vocab" ${t==="vocab"?"selected":""}>語彙 Từ vựng</option>
+      </select>
+      <label>Câu hỏi</label>
+      <textarea id="f_q" placeholder="Nhập câu hỏi...">${q.replace(/</g,"&lt;")}</textarea>
+      <label>4 đáp án (chọn ô tròn cho đáp án đúng)</label>
+      ${[0,1,2,3].map(i=>`
+        <div class="choice-row">
+          <input type="radio" name="f_a" value="${i}" ${a===i?"checked":""}>
+          <input type="text" id="f_c${i}" value="${(c[i]||"").replace(/"/g,"&quot;")}" placeholder="Đáp án ${i+1}">
+        </div>`).join("")}
+      <label>Giải thích</label>
+      <textarea id="f_e" placeholder="Giải thích đáp án...">${e.replace(/</g,"&lt;")}</textarea>
+      <div class="row-btns" style="margin-top:14px;">
+        <button class="btn gold" onclick="saveQuestionForm()">${editing?"Lưu thay đổi":"Thêm câu hỏi"}</button>
+        <button class="btn ghost" onclick="closeQuestionForm()">Hủy</button>
+      </div>
+    </div>
+  `;
+}
+
+function saveQuestionForm(){
+  const q = document.getElementById("f_q").value.trim();
+  const t = document.getElementById("f_t").value;
+  const e = document.getElementById("f_e").value.trim();
+  const c = [0,1,2,3].map(i=>document.getElementById("f_c"+i).value.trim());
+  const aRadio = document.querySelector('input[name="f_a"]:checked');
+  if(!q || c.some(x=>!x) || !aRadio){ alert("Vui lòng nhập đầy đủ câu hỏi, 4 đáp án và chọn đáp án đúng."); return; }
+  const a = +aRadio.value;
+  const id = window._qformId;
+  if(id){
+    const item = getQById(id);
+    Object.assign(item, {q,t,c,a,e});
+  }else{
+    state.qbank.push({id:"c"+Date.now(), q, t, c, a, e});
+  }
+  saveState();
+  closeQuestionForm();
+}
+
+function deleteQuestionConfirm(id){
+  if(!confirm("Xóa câu hỏi này khỏi ngân hàng đề?")) return;
+  state.qbank = state.qbank.filter(q=>q.id!==id);
+  delete state.pointStats[id];
+  saveState();
+  render();
+}
+
+function renderSettingsTab(p){
+  p.innerHTML = `
+    <h2>設定 — Khung giờ nhắc nhở</h2>
+    <div class="muted">Khi mở app sau giờ đã đặt mà chưa học hôm đó, banner nhắc sẽ hiện ra. (Không gửi được thông báo khi đóng trình duyệt.)</div>
+    <div class="time-row">
+      <label>🌅 Buổi sáng</label>
+      <input type="time" id="morningInput" value="${state.reminderMorning}">
+    </div>
+    <div class="time-row">
+      <label>🌙 Buổi tối</label>
+      <input type="time" id="eveningInput" value="${state.reminderEvening}">
+    </div>
+    <div class="row-btns">
+      <button class="btn gold" onclick="saveReminders()">Lưu khung giờ</button>
+      <button class="btn ghost" onclick="resetProgress()">Đặt lại toàn bộ tiến độ</button>
+    </div>
+
+    <h2 style="font-size:15px;margin-top:20px;">Ngân hàng đề (bank.js)</h2>
+    <div class="muted">Đang dùng ${state.qbank.length} câu (bank.js hiện có ${BANK.length} câu). Nếu bạn vừa cập nhật file bank.js nhưng số liệu trong app chưa khớp, bấm đồng bộ lại.</div>
+    <div class="row-btns">
+      <button class="btn ghost" onclick="resyncBank()">Đồng bộ lại từ bank.js</button>
+    </div>
+  `;
+}
+
+function saveReminders(){
+  state.reminderMorning = document.getElementById("morningInput").value;
+  state.reminderEvening = document.getElementById("eveningInput").value;
+  saveState();
+  checkReminder();
+  alert("Đã lưu khung giờ nhắc nhở!");
+}
+
+function resetProgress(){
+  if(!confirm("Xóa toàn bộ tiến độ, streak và nhật ký? (Ngân hàng đề bạn tự thêm/sửa vẫn được giữ nguyên)")) return;
+  const keepQbank = state.qbank;
+  const keepVersion = state.bankVersion;
+  state = {streak:0,lastStudyDate:null,totalAnswered:0,totalCorrect:0,log:[],reminderMorning:"07:00",reminderEvening:"21:00",dismissedToday:{},qbank:keepQbank,bankVersion:keepVersion,roadmapProgress:{},pointStats:{}};
+  saveState();
+  render();
+}
+
+/* ---------------- INIT ---------------- */
+(async function init(){
+  if(bankLoadError){
+    document.getElementById("panel").innerHTML = `
+      <h2>⚠️ Không tải được ngân hàng đề</h2>
+      <div class="muted">Không tìm thấy hoặc không đọc được file <b>bank.js</b>.</div>
+      <div class="insight">File <b>n1_sensei.html</b> và <b>bank.js</b> phải nằm <b>cùng một thư mục</b>. Hãy kiểm tra lại bạn đã tải cả 2 file về cùng một chỗ, và tên file bank.js không bị đổi tên.</div>
+    `;
+    return;
+  }
+  await loadState();
+  render();
+  checkReminder();
+  setInterval(checkReminder, 60000);
+  setInterval(tickTimer, 1000);
+})();
+</script>
+</body>
+</html>
